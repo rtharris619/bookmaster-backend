@@ -15,4 +15,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Books\Bookmaster.Modules.Books.Infrastructure\Bookmaster.Modules.Books.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
