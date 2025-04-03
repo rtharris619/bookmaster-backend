@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{C6826A5C-6DCF-44CD-A765-1B5F47EFF9D7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8EBD16E2-205D-4E8F-8945-C788E9308943}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{B79F3FFB-9B1C-46E5-A6AE-2CF935D8941B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E496711D-D8E1-40FE-BE31-9B4AE05A5353}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{A795450A-C0A8-4813-9DE9-49C516C7DC5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Api", "src\API\Bookmaster.Api\Bookmaster.Api.csproj", "{2C9758CD-AE31-483B-8624-89CB2F5DB9F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Common.Domain", "src\Common\Bookmaster.Common.Domain\Bookmaster.Common.Domain.csproj", "{88D6F939-68D1-4DEC-8E7C-B034B941179F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Books", "Books", "{F00831B3-95F2-4855-A73F-9CC52E1015B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{7CBDA7D0-7822-422A-AF04-B67D7FE41EAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Common.Application", "src\Common\Bookmaster.Common.Application\Bookmaster.Common.Application.csproj", "{956AD443-3F36-4580-81B6-AC827D7E378A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Common.Infrastructure", "src\Common\Bookmaster.Common.Infrastructure\Bookmaster.Common.Infrastructure.csproj", "{08CFF0B3-7BB4-44DF-BF6D-48BD86058AE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Common.Presentation", "src\Common\Bookmaster.Common.Presentation\Bookmaster.Common.Presentation.csproj", "{2B0431D0-DCB6-4003-BB50-65CDD12BC693}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C9758CD-AE31-483B-8624-89CB2F5DB9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9758CD-AE31-483B-8624-89CB2F5DB9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9758CD-AE31-483B-8624-89CB2F5DB9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9758CD-AE31-483B-8624-89CB2F5DB9F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88D6F939-68D1-4DEC-8E7C-B034B941179F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D6F939-68D1-4DEC-8E7C-B034B941179F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D6F939-68D1-4DEC-8E7C-B034B941179F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D6F939-68D1-4DEC-8E7C-B034B941179F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956AD443-3F36-4580-81B6-AC827D7E378A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956AD443-3F36-4580-81B6-AC827D7E378A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956AD443-3F36-4580-81B6-AC827D7E378A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956AD443-3F36-4580-81B6-AC827D7E378A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08CFF0B3-7BB4-44DF-BF6D-48BD86058AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08CFF0B3-7BB4-44DF-BF6D-48BD86058AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08CFF0B3-7BB4-44DF-BF6D-48BD86058AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08CFF0B3-7BB4-44DF-BF6D-48BD86058AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0431D0-DCB6-4003-BB50-65CDD12BC693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0431D0-DCB6-4003-BB50-65CDD12BC693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0431D0-DCB6-4003-BB50-65CDD12BC693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0431D0-DCB6-4003-BB50-65CDD12BC693}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B79F3FFB-9B1C-46E5-A6AE-2CF935D8941B} = {8EBD16E2-205D-4E8F-8945-C788E9308943}
+		{E496711D-D8E1-40FE-BE31-9B4AE05A5353} = {8EBD16E2-205D-4E8F-8945-C788E9308943}
+		{A795450A-C0A8-4813-9DE9-49C516C7DC5D} = {8EBD16E2-205D-4E8F-8945-C788E9308943}
+		{2C9758CD-AE31-483B-8624-89CB2F5DB9F1} = {B79F3FFB-9B1C-46E5-A6AE-2CF935D8941B}
+		{88D6F939-68D1-4DEC-8E7C-B034B941179F} = {E496711D-D8E1-40FE-BE31-9B4AE05A5353}
+		{F00831B3-95F2-4855-A73F-9CC52E1015B2} = {A795450A-C0A8-4813-9DE9-49C516C7DC5D}
+		{7CBDA7D0-7822-422A-AF04-B67D7FE41EAC} = {A795450A-C0A8-4813-9DE9-49C516C7DC5D}
+		{956AD443-3F36-4580-81B6-AC827D7E378A} = {E496711D-D8E1-40FE-BE31-9B4AE05A5353}
+		{08CFF0B3-7BB4-44DF-BF6D-48BD86058AE7} = {E496711D-D8E1-40FE-BE31-9B4AE05A5353}
+		{2B0431D0-DCB6-4003-BB50-65CDD12BC693} = {E496711D-D8E1-40FE-BE31-9B4AE05A5353}
+	EndGlobalSection
+EndGlobal
