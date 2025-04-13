@@ -1,5 +1,4 @@
-﻿
-namespace Bookmaster.Common.Domain;
+﻿namespace Bookmaster.Common.Domain;
 
 public abstract class DomainEvent : IDomainEvent
 {

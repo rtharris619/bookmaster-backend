@@ -1,3 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Domain\Bookmaster.Common.Domain.csproj" />
+  </ItemGroup>
 </Project>
