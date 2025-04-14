@@ -4,4 +4,7 @@
     <ProjectReference Include="..\Bookmaster.Modules.Books.Application\Bookmaster.Modules.Books.Application.csproj" />
     <ProjectReference Include="..\Bookmaster.Modules.Books.Presentation\Bookmaster.Modules.Books.Presentation.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\Migrations\" />
+  </ItemGroup>
 </Project>

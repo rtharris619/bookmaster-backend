@@ -1,13 +1,13 @@
 ﻿using Bookmaster.Common.Domain;
 
-namespace Bookmaster.Modules.Books.Domain;
+namespace Bookmaster.Modules.Books.Domain.Books;
 
-public sealed class GoogleBook : Entity
+public sealed class Book : Entity
 {
-    private readonly List<GoogleBookAuthor> _authors = [];
+    private readonly List<Author> _authors = [];
 
     // For EF Core to Materialise
-    private GoogleBook()
+    private Book()
     {
     }
 
@@ -21,15 +21,15 @@ public sealed class GoogleBook : Entity
 
     public string GoogleBookId { get; private set; }
 
-    public IReadOnlyCollection<GoogleBookAuthor> Authors => [.. _authors];
+    public IReadOnlyCollection<Author> Authors => [.. _authors];
 
-    public static GoogleBook Create(
+    public static Book Create(
         string googleBookId,
         string title,
         string subTitle,
         string description)
     {
-        var googleBook = new GoogleBook
+        var book = new Book
         {
             Id = Guid.NewGuid(),
             GoogleBookId = googleBookId,
@@ -38,6 +38,6 @@ public sealed class GoogleBook : Entity
             Description = description
         };
 
-        return googleBook;
+        return book;
     }
 }
