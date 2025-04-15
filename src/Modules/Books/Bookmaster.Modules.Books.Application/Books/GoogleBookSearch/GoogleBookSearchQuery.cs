@@ -2,5 +2,5 @@
 
 namespace Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 
-public sealed record GoogleBookSearchQuery(string Q, string PrintType, int MaxResults = 10)
+public sealed record GoogleBookSearchQuery(string Q, string PrintType, int MaxResults = 2)
     : IQuery<IReadOnlyCollection<GoogleBookSearchResponse>>;

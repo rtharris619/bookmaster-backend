@@ -6,4 +6,8 @@
   <ItemGroup>
     <Folder Include="Books\Create\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+    <PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
+  </ItemGroup>
 </Project>
