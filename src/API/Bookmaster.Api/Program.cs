@@ -1,11 +1,12 @@
-using Bookmaster.Common.Application;
+using Bookmaster.Common.Features;
+using Bookmaster.Modules.Books.Features;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplication([Bookmaster.Modules.Books.Application.AssemblyReference.Assembly]);
+builder.Services.AddFeatures([AssemblyReference.Assembly]);
 
 WebApplication app = builder.Build();
 

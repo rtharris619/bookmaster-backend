@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bookmaster.Common.Application;
+namespace Bookmaster.Common.Features;
 
-public static class ApplicationConfiguration
+public static class FeaturesConfiguration
 {
-    public static IServiceCollection AddApplication(
+    public static IServiceCollection AddFeatures(
         this IServiceCollection services,
         Assembly[] moduleAssemblies)
     {

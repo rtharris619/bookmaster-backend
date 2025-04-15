@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Bookmaster.Modules.Books.Application.Abstractions;
+namespace Bookmaster.Modules.Books.Features.Abstractions;
 
 public interface IUnitOfWork
 {

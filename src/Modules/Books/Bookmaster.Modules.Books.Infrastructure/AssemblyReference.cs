@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Bookmaster.Modules.Books.Features;
+namespace Bookmaster.Modules.Books.Infrastructure;
 
 public static class AssemblyReference
 {

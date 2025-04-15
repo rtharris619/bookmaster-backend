@@ -24,6 +24,7 @@ public sealed class Book : Entity
     public IReadOnlyCollection<Author> Authors => [.. _authors];
 
     public static Book Create(
+        List<Author> authors,
         string googleBookId,
         string title,
         string subTitle,
@@ -37,6 +38,8 @@ public sealed class Book : Entity
             Subtitle = subTitle,
             Description = description
         };
+
+        book._authors.AddRange(authors);
 
         return book;
     }
