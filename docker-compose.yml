@@ -1,0 +1,9 @@
+services:
+  bookmaster.api:
+    image: ${DOCKER_REGISTRY-}bookmasterapi
+    build:
+      context: .
+      dockerfile: src/API/Bookmaster.Api/Dockerfile
+    ports:
+      - "7000:8080"
+      - "7001:8081"
