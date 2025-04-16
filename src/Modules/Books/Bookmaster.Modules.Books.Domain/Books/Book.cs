@@ -15,11 +15,25 @@ public sealed class Book : Entity
 
     public string Title { get; private set; }
 
-    public string Subtitle { get; private set; }
+    public string? Subtitle { get; private set; }
 
     public string Description { get; private set; }
 
+    public string? TextSnippet { get; private set; }
+
     public string GoogleBookId { get; private set; }
+
+    public string? GoogleBookInfoLink { get; set; }
+
+    public int PageCount { get; private set; }
+
+    public string? Thumbnail { get; private set; }
+
+    public string? SmallThumbnail { get; private set; }
+
+    public string? Publisher { get; private set; }
+
+    public DateTime? PublishedDate { get; private set; }
 
     public IReadOnlyCollection<Author> Authors => [.. _authors];
 
@@ -28,7 +42,14 @@ public sealed class Book : Entity
         string googleBookId,
         string title,
         string subTitle,
-        string description)
+        string description,
+        string? textSnippet,
+        string googleBookInfoLink,
+        int pageCount,
+        string thumbnail,
+        string smallThumbnail,
+        string publisher,
+        DateTime publishedDate)
     {
         var book = new Book
         {
@@ -36,7 +57,14 @@ public sealed class Book : Entity
             GoogleBookId = googleBookId,
             Title = title,
             Subtitle = subTitle,
-            Description = description
+            Description = description,
+            TextSnippet = textSnippet,
+            GoogleBookInfoLink = googleBookInfoLink,
+            PageCount = pageCount,
+            Thumbnail = thumbnail,
+            SmallThumbnail = smallThumbnail,
+            Publisher = publisher,
+            PublishedDate = publishedDate
         };
 
         book._authors.AddRange(authors);

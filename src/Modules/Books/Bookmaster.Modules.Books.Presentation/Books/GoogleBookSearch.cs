@@ -11,6 +11,7 @@ using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -20,18 +21,16 @@ internal sealed class GoogleBookSearch : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet("books/googlebook-api-search", async (ISender sender, string q, string printType, int maxResults = 2) =>
+        routeBuilder.MapGet("books/search", async (ISender sender, string q, string printType = "books", int maxResults = 5) =>
         {
-            Result<GoogleBookSearchResponse> result = await sender.Send(new GoogleBookSearchQuery(q, printType, maxResults));
+            Result<GoogleBookSearchResponse>? result = await sender.Send(new GoogleBookSearchQuery(q, printType, maxResults));
+
+            if (result is null)
+            {
+                return Results.Problem(detail: "Error in retrieving books from Google Books API.");
+            }            
 
             return result.Match(Results.Ok, ApiResults.Problem);
         });
-    }
-
-    internal sealed class GoogleBookSearchRequest
-    {
-        public string q { get; init; }
-        public string PrintType { get; init; }
-        public int MaxResults { get; init; }
     }
 }
