@@ -16,7 +16,7 @@ public static class BooksModule
     {
         builder.AddFeatureServices();
 
-        builder.Services.AddInfrastructure();
+        //builder.Services.AddInfrastructure();
 
         builder.Services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
@@ -37,6 +37,6 @@ public static class BooksModule
             {
                 ContentSerializer = new NewtonsoftJsonContentSerializer()
             })
-            .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://www.googleapis.com/books/v1/volumes"));
+            .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://www.googleapis.com/books/v1"));
     }
 }

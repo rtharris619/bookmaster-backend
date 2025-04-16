@@ -8,13 +8,13 @@ namespace Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 internal sealed class GoogleBookSearchQueryHandler(
     IGoogleBooksApi googleBooksApi,
     ILogger<GoogleBookSearchQueryHandler> logger)
-    : IQueryHandler<GoogleBookSearchQuery, IReadOnlyCollection<GoogleBookSearchResponse>>
+    : IQueryHandler<GoogleBookSearchQuery, GoogleBookSearchResponse>
 {
-    public async Task<Result<IReadOnlyCollection<GoogleBookSearchResponse>>> Handle(
+    public async Task<Result<GoogleBookSearchResponse>> Handle(
         GoogleBookSearchQuery request,
         CancellationToken cancellationToken)
     {
-        ApiResponse<List<GoogleBookSearchResponse>> response = await googleBooksApi.GetBooks(request, cancellationToken);
+        ApiResponse<GoogleBookSearchResponse> response = await googleBooksApi.GetBooks(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {

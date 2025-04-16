@@ -6,7 +6,7 @@ namespace Bookmaster.Modules.Books.Features.Books;
 public interface IGoogleBooksApi
 {
     [Get("/volumes")]
-    Task<ApiResponse<List<GoogleBookSearchResponse>>> GetBooks(
+    Task<ApiResponse<GoogleBookSearchResponse>> GetBooks(
         GoogleBookSearchQuery query,
         CancellationToken cancellationToken = default);
 }
