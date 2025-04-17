@@ -1,3 +1,4 @@
+using Bookmaster.Api.Extensions;
 using Bookmaster.Common.Features;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Modules.Books.Features;
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddFeatures([Bookmaster.Modules.Books.Features.AssemblyReference.Assembly]);
 
-builder.AddBooksModule();
+builder.AddBooksModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
@@ -20,6 +21,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();

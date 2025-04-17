@@ -41,15 +41,15 @@ public sealed class Book : Entity
         List<Author> authors,
         string googleBookId,
         string title,
-        string subTitle,
+        string? subTitle,
         string description,
         string? textSnippet,
-        string googleBookInfoLink,
+        string? googleBookInfoLink,
         int pageCount,
-        string thumbnail,
-        string smallThumbnail,
-        string publisher,
-        DateTime publishedDate)
+        string? thumbnail,
+        string? smallThumbnail,
+        string? publisher,
+        DateTime? publishedDate)
     {
         var book = new Book
         {

@@ -1,8 +1,8 @@
 ﻿namespace Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 
-public sealed record GoogleBookSearchResponse(string Kind, int TotalItems, List<GoogleBooksSearchResponseItems> Items);
+public sealed record GoogleBookSearchResponse(string Kind, int TotalItems, List<GoogleBooksSearchResponseItem> Items);
 
-public sealed record GoogleBooksSearchResponseItems(
+public sealed record GoogleBooksSearchResponseItem(
     string Kind,
     string Id,
     GoogleBooksSearchResponseVolumeInfo VolumeInfo,

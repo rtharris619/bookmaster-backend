@@ -1,9 +1,22 @@
 services:
   bookmaster.api:
     image: ${DOCKER_REGISTRY-}bookmasterapi
+    container_name: Bookmaster.Api
     build:
       context: .
       dockerfile: src/API/Bookmaster.Api/Dockerfile
     ports:
       - "7000:8080"
       - "7001:8081"
+
+  bookmaster.database:
+    image: postgres:latest
+    container_name: Bookmaster.Database
+    environment:
+      - POSTGRES_DB=bookmaster
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
