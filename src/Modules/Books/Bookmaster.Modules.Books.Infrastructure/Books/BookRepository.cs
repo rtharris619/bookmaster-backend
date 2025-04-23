@@ -13,6 +13,13 @@ internal sealed class BookRepository(BooksDbContext context) : IBookRepository
             .SingleOrDefaultAsync(b => b.Id == id, cancellationToken);
     }
 
+    public async Task<Book?> GetByGoogleBookIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        return await context.Books
+            .Include(b => b.Authors)
+            .SingleOrDefaultAsync(b => b.GoogleBookId == id, cancellationToken);
+    }
+
     public void Insert(Book book)
     {
         context.Books.Add(book);

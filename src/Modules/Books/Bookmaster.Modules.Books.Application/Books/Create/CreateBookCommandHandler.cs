@@ -23,15 +23,22 @@ internal sealed class CreateBookCommandHandler(
 
         if (!response.IsSuccessStatusCode)
         {
-            return Result.Failure<Guid>(new Error("", "Failed to fetch book details from Google Books API.", ErrorType.Failure));
+            return Result.Failure<Guid>(BookErrors.ApiResponseFailure());
         }
 
         if (response.Content is null)
         {
-            return Result.Failure<Guid>(new Error("", "Book not found in Google Books API.", ErrorType.NotFound));
+            return Result.Failure<Guid>(BookErrors.NotFound(request.GoogleBookId));
         }
 
         GoogleBooksSearchResponseItem googleBookResult = response.Content;
+
+        Book? existingBook = await bookRepository.GetByGoogleBookIdAsync(googleBookResult.Id, cancellationToken);
+
+        if (existingBook is not null)
+        {
+            return Result.Failure<Guid>(BookErrors.Duplicate(googleBookResult.Id));
+        }
 
         List<Author> authors = await GetAuthors(googleBookResult.VolumeInfo.Authors, authorRepository);
 
