@@ -6,7 +6,7 @@ public sealed record GoogleBooksSearchResponseItem(
     string Kind,
     string Id,
     GoogleBooksSearchResponseVolumeInfo VolumeInfo,
-    GoogleBooksSearchResponseSearchInfo SearchInfo);
+    GoogleBooksSearchResponseSearchInfo? SearchInfo);
 
 public sealed record GoogleBooksSearchResponseVolumeInfo(
     string Title, 

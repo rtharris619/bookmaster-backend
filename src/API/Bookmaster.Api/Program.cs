@@ -1,5 +1,7 @@
+using System.Reflection;
 using Bookmaster.Api.Extensions;
 using Bookmaster.Common.Features;
+using Bookmaster.Common.Infrastructure;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Modules.Books.Features;
 using Bookmaster.Modules.Books.Infrastructure;
@@ -11,7 +13,13 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddFeatures([Bookmaster.Modules.Books.Features.AssemblyReference.Assembly]);
+Assembly[] moduleFeatureAssemblies = [
+    Bookmaster.Modules.Books.Features.AssemblyReference.Assembly
+];
+
+builder.Services.AddFeatures(moduleFeatureAssemblies);
+
+builder.Services.AddInfrastructure();
 
 builder.AddBooksModule(builder.Configuration);
 

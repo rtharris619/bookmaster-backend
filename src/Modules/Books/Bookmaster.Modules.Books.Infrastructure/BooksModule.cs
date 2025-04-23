@@ -43,6 +43,7 @@ public static class BooksModule
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<BooksDbContext>());
 
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
     }
 
