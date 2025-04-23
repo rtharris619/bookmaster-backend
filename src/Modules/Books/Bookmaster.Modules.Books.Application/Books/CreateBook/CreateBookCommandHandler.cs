@@ -7,7 +7,7 @@ using Bookmaster.Modules.Books.Features.Abstractions;
 using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 using Refit;
 
-namespace Bookmaster.Modules.Books.Features.Books.Create;
+namespace Bookmaster.Modules.Books.Features.Books.CreateBook;
 
 internal sealed class CreateBookCommandHandler(
     IGoogleBooksApi googleBooksApi,
