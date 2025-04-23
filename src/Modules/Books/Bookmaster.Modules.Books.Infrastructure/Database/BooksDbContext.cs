@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using Bookmaster.Modules.Books.Domain.Books;
+using Bookmaster.Modules.Books.Domain.Person;
 using Bookmaster.Modules.Books.Features.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -11,6 +12,7 @@ public sealed class BooksDbContext(DbContextOptions<BooksDbContext> options)
 {
     internal DbSet<Author> Authors { get; set; }
     internal DbSet<Book> Books { get; set; }
+    internal DbSet<Person> People { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

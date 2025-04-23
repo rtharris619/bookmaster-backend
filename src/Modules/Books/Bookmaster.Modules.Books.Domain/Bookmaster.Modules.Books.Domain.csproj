@@ -4,6 +4,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
-    <Folder Include="Person\" />
   </ItemGroup>
 </Project>

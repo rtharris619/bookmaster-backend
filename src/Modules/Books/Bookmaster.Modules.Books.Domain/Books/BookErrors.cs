@@ -11,5 +11,5 @@ public static class BookErrors
         Error.Failure("Books.GoogleBooksApiResponseFailure", $"Failed to fetch book details from Google Books API");
 
     public static Error NotFound(string googleBookId) =>
-        Error.NotFound("Books.NotFound", $"The book with the identifier {googleBookId} was not found");
+        Error.NotFound("Books.NotFound", $"The book with the Google Book Id {googleBookId} was not found");
 }
