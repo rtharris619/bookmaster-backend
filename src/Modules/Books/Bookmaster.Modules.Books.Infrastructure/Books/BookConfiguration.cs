@@ -1,5 +1,5 @@
 ﻿using Bookmaster.Modules.Books.Domain.Books;
-using Bookmaster.Modules.Books.Domain.Person;
+using Bookmaster.Modules.Books.Domain.People;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,11 +11,6 @@ internal sealed class BookConfiguration : IEntityTypeConfiguration<Book>
     {
         builder.HasKey(x => x.Id);
 
-        builder.HasMany<Person>()
-            .WithMany(p => p.Books)
-            .UsingEntity(joinBuilder =>
-            {
-                joinBuilder.ToTable("person_books");
-            });
+        builder.HasMany(x => x.LibraryEntries);
     }
 }

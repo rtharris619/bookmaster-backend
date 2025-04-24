@@ -1,4 +1,4 @@
-﻿namespace Bookmaster.Modules.Books.Domain.Person;
+﻿namespace Bookmaster.Modules.Books.Domain.People;
 
 public interface IPersonRepository
 {

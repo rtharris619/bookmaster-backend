@@ -1,7 +1,7 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Common.Presentation.ApiResults;
 using Bookmaster.Common.Presentation.Endpoints;
-using Bookmaster.Modules.Books.Features.Books.Create;
+using Bookmaster.Modules.Books.Features.Books.CreateBook;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

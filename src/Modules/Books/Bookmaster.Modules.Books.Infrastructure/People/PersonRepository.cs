@@ -1,4 +1,4 @@
-﻿using Bookmaster.Modules.Books.Domain.Person;
+﻿using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +9,7 @@ internal sealed class PersonRepository(BooksDbContext context) : IPersonReposito
     public Task<Person?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return context.People
-            .Include(p => p.Books)
+            .Include(p => p.LibraryEntries)
             .SingleOrDefaultAsync(p => p.Id == id,
                 cancellationToken);
     }

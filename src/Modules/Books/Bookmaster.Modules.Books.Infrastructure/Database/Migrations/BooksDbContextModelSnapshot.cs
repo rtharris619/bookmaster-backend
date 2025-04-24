@@ -120,6 +120,65 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     b.ToTable("books", "books");
                 });
 
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Libraries.LibraryEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("book_id");
+
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on_utc");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("person_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_library_entries");
+
+                    b.HasIndex("BookId")
+                        .HasDatabaseName("ix_library_entries_book_id");
+
+                    b.HasIndex("PersonId")
+                        .HasDatabaseName("ix_library_entries_person_id");
+
+                    b.ToTable("library_entries", "books");
+                });
+
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.People.Person", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_people");
+
+                    b.ToTable("people", "books");
+                });
+
             modelBuilder.Entity("AuthorBook", b =>
                 {
                     b.HasOne("Bookmaster.Modules.Books.Domain.Books.Author", null)
@@ -135,6 +194,37 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_book_authors_books_book_id");
+                });
+
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Libraries.LibraryEntry", b =>
+                {
+                    b.HasOne("Bookmaster.Modules.Books.Domain.Books.Book", "Book")
+                        .WithMany("LibraryEntries")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_library_entries_books_book_id");
+
+                    b.HasOne("Bookmaster.Modules.Books.Domain.People.Person", "Person")
+                        .WithMany("LibraryEntries")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_library_entries_people_person_id");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Books.Book", b =>
+                {
+                    b.Navigation("LibraryEntries");
+                });
+
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.People.Person", b =>
+                {
+                    b.Navigation("LibraryEntries");
                 });
 #pragma warning restore 612, 618
         }

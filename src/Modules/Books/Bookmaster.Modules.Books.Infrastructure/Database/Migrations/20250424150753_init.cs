@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,6 +53,21 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "people",
+                schema: "books",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    email = table.Column<string>(type: "text", nullable: false),
+                    first_name = table.Column<string>(type: "text", nullable: false),
+                    last_name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_people", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "book_authors",
                 schema: "books",
                 columns: table => new
@@ -79,11 +94,52 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "library_entries",
+                schema: "books",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    book_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    person_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    created_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_library_entries", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_library_entries_books_book_id",
+                        column: x => x.book_id,
+                        principalSchema: "books",
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_library_entries_people_person_id",
+                        column: x => x.person_id,
+                        principalSchema: "books",
+                        principalTable: "people",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_book_authors_book_id",
                 schema: "books",
                 table: "book_authors",
                 column: "book_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_library_entries_book_id",
+                schema: "books",
+                table: "library_entries",
+                column: "book_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_library_entries_person_id",
+                schema: "books",
+                table: "library_entries",
+                column: "person_id");
         }
 
         /// <inheritdoc />
@@ -94,11 +150,19 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                 schema: "books");
 
             migrationBuilder.DropTable(
+                name: "library_entries",
+                schema: "books");
+
+            migrationBuilder.DropTable(
                 name: "authors",
                 schema: "books");
 
             migrationBuilder.DropTable(
                 name: "books",
+                schema: "books");
+
+            migrationBuilder.DropTable(
+                name: "people",
                 schema: "books");
         }
     }

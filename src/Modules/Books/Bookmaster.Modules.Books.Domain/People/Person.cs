@@ -1,11 +1,12 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Modules.Books.Domain.Books;
+using Bookmaster.Modules.Books.Domain.Libraries;
 
-namespace Bookmaster.Modules.Books.Domain.Person;
+namespace Bookmaster.Modules.Books.Domain.People;
 
 public sealed class Person : Entity
 {
-    private readonly List<Book> _books = [];
+    private readonly List<LibraryEntry> _libraryEntries = [];
 
     private Person() { }
 
@@ -17,7 +18,7 @@ public sealed class Person : Entity
 
     public string LastName { get; private set; }
 
-    public IReadOnlyCollection<Book> Books => [.. _books];
+    public IReadOnlyCollection<LibraryEntry> LibraryEntries => [.. _libraryEntries];
 
     public static Person Create(Guid id, string email, string firstName, string lastName)
     {
@@ -28,10 +29,5 @@ public sealed class Person : Entity
             FirstName = firstName,
             LastName = lastName
         };
-    }
-
-    public static void AddBookToPerson(Person person, Book book)
-    {
-        person._books.Add(book);
     }
 }

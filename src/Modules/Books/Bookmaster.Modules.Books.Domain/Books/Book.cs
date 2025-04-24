@@ -1,10 +1,12 @@
 ﻿using Bookmaster.Common.Domain;
+using Bookmaster.Modules.Books.Domain.Libraries;
 
 namespace Bookmaster.Modules.Books.Domain.Books;
 
 public sealed class Book : Entity
 {
     private readonly List<Author> _authors = [];
+    private readonly List<LibraryEntry> _libraryEntries = [];
 
     // For EF Core to Materialise
     private Book()
@@ -36,6 +38,7 @@ public sealed class Book : Entity
     public DateTime? PublishedDate { get; private set; }
 
     public IReadOnlyCollection<Author> Authors => [.. _authors];
+    public IReadOnlyCollection<LibraryEntry> LibraryEntries => [.. _libraryEntries];
 
     public static Book Create(
         List<Author> authors,
