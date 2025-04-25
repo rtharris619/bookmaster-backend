@@ -5,10 +5,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+    public partial class initial : Migration
+#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -121,6 +125,16 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         principalTable: "people",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                schema: "books",
+                table: "people",
+                columns: new[] { "id", "email", "first_name", "last_name" },
+                values: new object[,]
+                {
+                    { new Guid("2c356126-124e-4b99-b2b3-1c848dedf966"), "ryan@bookmaster.com", "Ryan", "Harris" },
+                    { new Guid("9ed784e0-6231-4bf8-9b98-b16716dede98"), "claudene@bookmaster.com", "Claudene", "Harris" }
                 });
 
             migrationBuilder.CreateIndex(

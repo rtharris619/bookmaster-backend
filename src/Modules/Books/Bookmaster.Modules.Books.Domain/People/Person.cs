@@ -10,6 +10,14 @@ public sealed class Person : Entity
 
     private Person() { }
 
+    public Person(Guid id, string email, string firstName, string lastName) 
+    {
+        Id = id;
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+    }
+
     public Guid Id { get; private set; }
 
     public string Email { get; private set; }

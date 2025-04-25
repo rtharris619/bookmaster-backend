@@ -1,5 +1,5 @@
 ﻿using Bookmaster.Common.Domain;
-using Bookmaster.Common.Presentation.ApiResults;
+using Bookmaster.Common.Presentation.Results;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Modules.Books.Features.Books.CreateBook;
 using MediatR;

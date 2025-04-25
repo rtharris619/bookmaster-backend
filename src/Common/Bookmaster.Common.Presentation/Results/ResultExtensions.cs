@@ -1,6 +1,6 @@
 ﻿using Bookmaster.Common.Domain;
 
-namespace Bookmaster.Common.Presentation.ApiResults;
+namespace Bookmaster.Common.Presentation.Results;
 
 public static class ResultExtensions
 {

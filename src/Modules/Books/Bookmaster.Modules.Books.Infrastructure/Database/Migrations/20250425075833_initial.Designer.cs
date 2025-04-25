@@ -12,8 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    [Migration("20250424150753_init")]
-    partial class init
+    [Migration("20250425075833_initial")]
+#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+    partial class initial
+#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,6 +182,22 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasName("pk_people");
 
                     b.ToTable("people", "books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2c356126-124e-4b99-b2b3-1c848dedf966"),
+                            Email = "ryan@bookmaster.com",
+                            FirstName = "Ryan",
+                            LastName = "Harris"
+                        },
+                        new
+                        {
+                            Id = new Guid("9ed784e0-6231-4bf8-9b98-b16716dede98"),
+                            Email = "claudene@bookmaster.com",
+                            FirstName = "Claudene",
+                            LastName = "Harris"
+                        });
                 });
 
             modelBuilder.Entity("AuthorBook", b =>

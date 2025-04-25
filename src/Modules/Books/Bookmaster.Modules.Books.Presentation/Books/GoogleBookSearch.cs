@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bookmaster.Common.Domain;
-using Bookmaster.Common.Presentation.ApiResults;
+using Bookmaster.Common.Presentation.Results;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 using MediatR;

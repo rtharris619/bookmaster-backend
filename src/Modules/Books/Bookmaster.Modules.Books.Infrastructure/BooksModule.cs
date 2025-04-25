@@ -11,6 +11,10 @@ using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Infrastructure.Books;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Bookmaster.Modules.Books.Domain.Libraries;
+using Bookmaster.Modules.Books.Infrastructure.Libraries;
+using Bookmaster.Modules.Books.Domain.People;
+using Bookmaster.Modules.Books.Infrastructure.People;
 
 namespace Bookmaster.Modules.Books.Infrastructure;
 
@@ -45,6 +49,8 @@ public static class BooksModule
 
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<ILibraryEntryRepository, LibraryEntryRepository>();
+        services.AddScoped<IPersonRepository, PersonRepository>();
     }
 
     private static void AddFeatureServices(this WebApplicationBuilder builder)
