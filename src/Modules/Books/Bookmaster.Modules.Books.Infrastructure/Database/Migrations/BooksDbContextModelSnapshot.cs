@@ -85,8 +85,8 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("page_count");
 
-                    b.Property<DateTime?>("PublishedDate")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<string>("PublishedDate")
+                        .HasColumnType("text")
                         .HasColumnName("published_date");
 
                     b.Property<string>("Publisher")
@@ -120,7 +120,7 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     b.ToTable("books", "books");
                 });
 
-            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Libraries.LibraryEntry", b =>
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Library.LibraryEntry", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,7 +212,7 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasConstraintName("fk_book_authors_books_book_id");
                 });
 
-            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Libraries.LibraryEntry", b =>
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Library.LibraryEntry", b =>
                 {
                     b.HasOne("Bookmaster.Modules.Books.Domain.Books.Book", "Book")
                         .WithMany("LibraryEntries")

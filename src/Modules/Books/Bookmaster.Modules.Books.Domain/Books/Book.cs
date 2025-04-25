@@ -35,7 +35,7 @@ public sealed class Book : Entity
 
     public string? Publisher { get; private set; }
 
-    public DateTime? PublishedDate { get; private set; }
+    public string? PublishedDate { get; private set; }
 
     public IReadOnlyCollection<Author> Authors => [.. _authors];
     public IReadOnlyCollection<LibraryEntry> LibraryEntries => [.. _libraryEntries];
@@ -52,7 +52,7 @@ public sealed class Book : Entity
         string? thumbnail,
         string? smallThumbnail,
         string? publisher,
-        DateTime? publishedDate)
+        string? publishedDate)
     {
         var book = new Book
         {

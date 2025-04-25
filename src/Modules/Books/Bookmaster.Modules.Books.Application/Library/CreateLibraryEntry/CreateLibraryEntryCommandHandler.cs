@@ -54,7 +54,7 @@ internal sealed class CreateLibraryEntryCommandHandler(
                 googleBookResult.VolumeInfo.ImageLinks.SmallThumbnail,
                 googleBookResult.VolumeInfo.ImageLinks.Thumbnail,
                 googleBookResult.VolumeInfo.Publisher,
-                dateTimeProvider.ConvertToUtc(googleBookResult.VolumeInfo.PublishedDate));
+                googleBookResult.VolumeInfo.PublishedDate);
 
             if (bookResult.IsFailure)
             {

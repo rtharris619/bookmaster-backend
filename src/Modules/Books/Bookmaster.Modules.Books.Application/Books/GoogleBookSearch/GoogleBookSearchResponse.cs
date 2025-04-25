@@ -13,7 +13,7 @@ public sealed record GoogleBooksSearchResponseVolumeInfo(
     string? Subtitle,
     string[] Authors,
     string? Publisher,
-    DateTime? PublishedDate,
+    string? PublishedDate,
     string Description,
     int PageCount,
     string PrintType,

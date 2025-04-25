@@ -10,9 +10,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
-    public partial class initial : Migration
-#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,7 +47,7 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     thumbnail = table.Column<string>(type: "text", nullable: true),
                     small_thumbnail = table.Column<string>(type: "text", nullable: true),
                     publisher = table.Column<string>(type: "text", nullable: true),
-                    published_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    published_date = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Bookmaster.Api.Extensions;
+using Bookmaster.Api.Settings;
 using Bookmaster.Common.Features;
 using Bookmaster.Common.Infrastructure;
 using Bookmaster.Common.Presentation.Endpoints;
@@ -7,6 +8,8 @@ using Bookmaster.Modules.Books.Features;
 using Bookmaster.Modules.Books.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.AddCorsPolicy();
 
 builder.Services.AddProblemDetails();
 
@@ -34,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(CorsOptions.PolicyName);
 
 app.MapEndpoints();
 

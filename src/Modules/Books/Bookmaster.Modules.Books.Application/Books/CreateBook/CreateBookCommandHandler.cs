@@ -13,8 +13,7 @@ internal sealed class CreateBookCommandHandler(
     IGoogleBooksApi googleBooksApi,
     IBookRepository bookRepository,
     IAuthorRepository authorRepository,
-    IUnitOfWork unitOfWork,
-    IDateTimeProvider dateTimeProvider) 
+    IUnitOfWork unitOfWork) 
     : ICommandHandler<CreateBookCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
@@ -54,7 +53,7 @@ internal sealed class CreateBookCommandHandler(
             googleBookResult.VolumeInfo.ImageLinks.SmallThumbnail,
             googleBookResult.VolumeInfo.ImageLinks.Thumbnail,
             googleBookResult.VolumeInfo.Publisher,
-            dateTimeProvider.ConvertToUtc(googleBookResult.VolumeInfo.PublishedDate));
+            googleBookResult.VolumeInfo.PublishedDate);
 
         if (result.IsFailure)
         {
