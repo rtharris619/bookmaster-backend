@@ -1,4 +1,4 @@
-﻿namespace Bookmaster.Modules.Books.Domain.Libraries;
+﻿namespace Bookmaster.Modules.Books.Domain.Library;
 
 public interface ILibraryEntryRepository
 {

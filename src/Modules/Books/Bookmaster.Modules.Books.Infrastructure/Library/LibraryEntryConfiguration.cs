@@ -1,8 +1,8 @@
-﻿using Bookmaster.Modules.Books.Domain.Libraries;
+﻿using Bookmaster.Modules.Books.Domain.Library;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bookmaster.Modules.Books.Infrastructure.Libraries;
+namespace Bookmaster.Modules.Books.Infrastructure.Library;
 
 internal sealed class LibraryEntryConfiguration : IEntityTypeConfiguration<LibraryEntry>
 {

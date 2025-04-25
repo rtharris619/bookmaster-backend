@@ -2,7 +2,7 @@
 using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Domain.People;
 
-namespace Bookmaster.Modules.Books.Domain.Libraries;
+namespace Bookmaster.Modules.Books.Domain.Library;
 
 public sealed class LibraryEntry : Entity
 {

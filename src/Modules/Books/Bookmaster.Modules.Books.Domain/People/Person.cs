@@ -1,6 +1,6 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Modules.Books.Domain.Books;
-using Bookmaster.Modules.Books.Domain.Libraries;
+using Bookmaster.Modules.Books.Domain.Library;
 
 namespace Bookmaster.Modules.Books.Domain.People;
 

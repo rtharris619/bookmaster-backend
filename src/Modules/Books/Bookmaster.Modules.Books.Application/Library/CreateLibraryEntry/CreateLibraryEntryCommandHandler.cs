@@ -2,14 +2,14 @@
 using Bookmaster.Common.Features.Dates;
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Domain.Books;
-using Bookmaster.Modules.Books.Domain.Libraries;
+using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Features.Abstractions;
 using Bookmaster.Modules.Books.Features.Books;
 using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
 using Refit;
 
-namespace Bookmaster.Modules.Books.Features.Libraries.CreateLibraryEntry;
+namespace Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 
 internal sealed class CreateLibraryEntryCommandHandler(
     IGoogleBooksApi googleBooksApi,

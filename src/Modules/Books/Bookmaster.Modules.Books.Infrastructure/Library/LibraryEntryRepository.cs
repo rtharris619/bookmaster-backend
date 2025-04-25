@@ -1,8 +1,8 @@
-﻿using Bookmaster.Modules.Books.Domain.Libraries;
+﻿using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bookmaster.Modules.Books.Infrastructure.Libraries;
+namespace Bookmaster.Modules.Books.Infrastructure.Library;
 
 internal sealed class LibraryEntryRepository(BooksDbContext context) : ILibraryEntryRepository
 {
@@ -15,7 +15,9 @@ internal sealed class LibraryEntryRepository(BooksDbContext context) : ILibraryE
 
     public Task<List<LibraryEntry>> GetByPersonIdAsync(Guid personId, CancellationToken cancellationToken = default)
     {
-        return context.LibraryEntries.Where(x => x.PersonId == personId).ToListAsync(cancellationToken);
+        return context.LibraryEntries.Where(x => x.PersonId == personId)
+            .Include(x => x.Book).ThenInclude(x => x.Authors)
+            .ToListAsync(cancellationToken);
     }
 
     public Task<bool> ExistsAsync(Guid personId, Guid bookId, CancellationToken cancellationToken = default)

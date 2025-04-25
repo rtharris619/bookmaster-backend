@@ -1,6 +1,6 @@
 ﻿using Bookmaster.Common.Domain;
 
-namespace Bookmaster.Modules.Books.Domain.Libraries;
+namespace Bookmaster.Modules.Books.Domain.Library;
 
 public static class LibraryEntryErrors
 {

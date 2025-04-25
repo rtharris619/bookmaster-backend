@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 using Bookmaster.Modules.Books.Domain.Books;
-using Bookmaster.Modules.Books.Domain.Libraries;
+using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Features.Abstractions;
 using Microsoft.EntityFrameworkCore;

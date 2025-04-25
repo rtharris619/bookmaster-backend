@@ -5,7 +5,7 @@ using Bookmaster.Modules.Books.Features.Books.CreateBook;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Bookmaster.Modules.Books.Features.Libraries.CreateLibraryEntry;
+using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 using Microsoft.AspNetCore.Http;
 
 namespace Bookmaster.Modules.Books.Presentation.Library;

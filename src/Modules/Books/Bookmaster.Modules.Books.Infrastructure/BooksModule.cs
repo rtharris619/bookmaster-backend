@@ -11,8 +11,8 @@ using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Infrastructure.Books;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Bookmaster.Modules.Books.Domain.Libraries;
-using Bookmaster.Modules.Books.Infrastructure.Libraries;
+using Bookmaster.Modules.Books.Domain.Library;
+using Bookmaster.Modules.Books.Infrastructure.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Infrastructure.People;
 
