@@ -21,9 +21,15 @@ internal sealed class GoogleBookSearch : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet("books/search", async (ISender sender, string q, string printType = "books", int maxResults = 5) =>
+        routeBuilder.MapGet("books/search", async (
+            ISender sender,
+            string q,
+            string printType = "books",
+            int startIndex = 0,
+            int maxResults = 10) =>
         {
-            Result<GoogleBookSearchResponse>? result = await sender.Send(new GoogleBookSearchQuery(q, printType, maxResults));
+            Result<GoogleBookSearchResponse>? result = await sender.Send(
+                new GoogleBookSearchQuery(q, printType, startIndex, maxResults));
 
             if (result is null)
             {
