@@ -22,7 +22,15 @@ internal sealed class LibraryEntrySearchQueryHandler(ILibraryEntryRepository lib
             IReadOnlyCollection<Author> authors = book.Authors;
             string[] authorNames = [.. authors.Select(x => x.Name)];
 
-            result.Add(new LibraryEntriesResponse(book.Title, book.Description, authorNames));
+            result.Add(new LibraryEntriesResponse(
+                book.Id,
+                book.GoogleBookId,
+                book.Title,
+                book.Subtitle,
+                book.Description, 
+                authorNames,
+                book.PageCount,
+                book.Thumbnail));
         }
 
         return new LibraryEntrySearchResponse(libraryEntries.Count, result);
