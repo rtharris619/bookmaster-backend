@@ -22,7 +22,7 @@ internal sealed class CreateLibraryEntryCommandHandler(
 {
     public async Task<Result<Guid>> Handle(CreateLibraryEntryCommand request, CancellationToken cancellationToken)
     {
-        ApiResponse<GoogleBooksSearchResponseItem> response = await googleBooksApi.GetBook(request.GoogleBookId, cancellationToken);
+        ApiResponse<GoogleBookSearchResponseItem> response = await googleBooksApi.GetBook(request.GoogleBookId, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -34,7 +34,7 @@ internal sealed class CreateLibraryEntryCommandHandler(
             return Result.Failure<Guid>(BookErrors.NotFound(request.GoogleBookId));
         }
 
-        GoogleBooksSearchResponseItem googleBookResult = response.Content;
+        GoogleBookSearchResponseItem googleBookResult = response.Content;
 
         Book? book = await bookRepository.GetByGoogleBookIdAsync(googleBookResult.Id, cancellationToken);
 

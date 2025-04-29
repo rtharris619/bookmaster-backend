@@ -11,7 +11,7 @@ public interface IGoogleBooksApi
         CancellationToken cancellationToken = default);
 
     [Get("/volumes/{id}")]
-    Task<ApiResponse<GoogleBooksSearchResponseItem>> GetBook(
+    Task<ApiResponse<GoogleBookSearchResponseItem>> GetBook(
         string id,
         CancellationToken cancellationToken = default);
 }
