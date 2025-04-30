@@ -6,4 +6,5 @@ public interface ILibraryEntryRepository
     Task<List<LibraryEntry>> GetByPersonIdAsync(Guid personId, CancellationToken cancellationToken = default);
     Task<bool> ExistsAsync(Guid personId, Guid bookId, CancellationToken cancellationToken = default);
     void Insert(LibraryEntry libraryEntry);
+    void Delete(LibraryEntry libraryEntry);
 }

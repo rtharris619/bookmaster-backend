@@ -23,7 +23,9 @@ internal sealed class LibraryEntrySearchQueryHandler(ILibraryEntryRepository lib
             string[] authorNames = [.. authors.Select(x => x.Name)];
 
             result.Add(new LibraryEntriesResponse(
-                book.Id,
+                libraryEntry.Id,
+                libraryEntry.BookId,
+                libraryEntry.PersonId,
                 book.GoogleBookId,
                 book.Title,
                 book.Subtitle,

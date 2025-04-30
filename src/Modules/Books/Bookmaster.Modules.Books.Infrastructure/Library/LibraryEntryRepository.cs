@@ -30,4 +30,9 @@ internal sealed class LibraryEntryRepository(BooksDbContext context) : ILibraryE
     {
         context.LibraryEntries.Add(libraryEntry);
     }
+
+    public void Delete(LibraryEntry libraryEntry)
+    {
+        context.LibraryEntries.Remove(libraryEntry);
+    }
 }
