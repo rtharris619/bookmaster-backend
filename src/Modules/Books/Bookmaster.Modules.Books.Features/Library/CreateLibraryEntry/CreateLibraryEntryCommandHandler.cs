@@ -15,10 +15,12 @@ internal sealed class CreateLibraryEntryCommandHandler(
     IGoogleBooksApi googleBooksApi,
     IBookRepository bookRepository,
     IAuthorRepository authorRepository,
+    IBookCategoryRepository bookCategoryRepository,
     IPersonRepository personRepository,
     ILibraryEntryRepository libraryEntryRepository,
     IUnitOfWork unitOfWork,
-    IDateTimeProvider dateTimeProvider) : ICommandHandler<CreateLibraryEntryCommand, Guid>
+    IDateTimeProvider dateTimeProvider)
+    : ICommandHandler<CreateLibraryEntryCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateLibraryEntryCommand request, CancellationToken cancellationToken)
     {
@@ -42,9 +44,17 @@ internal sealed class CreateLibraryEntryCommandHandler(
         if (book is null)
         {
             List<Author> authors = await GetAuthors(googleBookResult.VolumeInfo.Authors, authorRepository);
+            List<BookCategory>? categories = null;
+            string[]? googleBookCategories = googleBookResult.VolumeInfo.Categories;
+
+            if (googleBookCategories is not null)
+            {
+                categories = await GetCategories(googleBookCategories, bookCategoryRepository);
+            }
 
             Result<Book> bookResult = Book.Create(
                 authors,
+                categories,
                 googleBookResult.Id,
                 googleBookResult.VolumeInfo.Title,
                 googleBookResult.VolumeInfo.Subtitle,
@@ -114,5 +124,21 @@ internal sealed class CreateLibraryEntryCommandHandler(
         }
 
         return authors;
+    }
+
+    private async Task<List<BookCategory>> GetCategories(string[] googleBookCategories, IBookCategoryRepository bookCategoryRepository)
+    {
+        List<BookCategory> categories = [];
+        foreach (string googleBookCategory in googleBookCategories)
+        {
+            BookCategory? category = await bookCategoryRepository.GetByNameAsync(googleBookCategory);
+            if (category is null)
+            {
+                category = BookCategory.Create(googleBookCategory);
+                bookCategoryRepository.Insert(category);
+            }
+            categories.Add(category);
+        }
+        return categories;
     }
 }

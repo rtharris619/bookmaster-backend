@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bookmaster.Modules.Books.Infrastructure.Books;
 
-internal sealed class AuthorConfiguration : IEntityTypeConfiguration<Author>
+internal sealed class BookCategoryConfiguration : IEntityTypeConfiguration<BookCategory>
 {
-    public void Configure(EntityTypeBuilder<Author> builder)
+    public void Configure(EntityTypeBuilder<BookCategory> builder)
     {
         builder.HasKey(x => x.Id);
 
@@ -14,10 +14,10 @@ internal sealed class AuthorConfiguration : IEntityTypeConfiguration<Author>
             .IsRequired()
             .HasMaxLength(500);
 
-        builder.HasMany<Book>().WithMany(x => x.Authors)
+        builder.HasMany<Book>().WithMany(x => x.Categories)
             .UsingEntity(joinBuilder =>
             {
-                joinBuilder.ToTable("book_authors");
+                joinBuilder.ToTable("book_categories");
             });
     }
 }

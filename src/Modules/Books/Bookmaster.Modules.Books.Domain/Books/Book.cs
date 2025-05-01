@@ -6,6 +6,7 @@ namespace Bookmaster.Modules.Books.Domain.Books;
 public sealed class Book : Entity
 {
     private readonly List<Author> _authors = [];
+    private readonly List<BookCategory> _categories = [];
     private readonly List<LibraryEntry> _libraryEntries = [];
 
     // For EF Core to Materialise
@@ -38,10 +39,12 @@ public sealed class Book : Entity
     public string? PublishedDate { get; private set; }
 
     public IReadOnlyCollection<Author> Authors => [.. _authors];
+    public IReadOnlyCollection<BookCategory> Categories => [.. _categories];
     public IReadOnlyCollection<LibraryEntry> LibraryEntries => [.. _libraryEntries];
 
     public static Book Create(
         List<Author> authors,
+        List<BookCategory>? categories,
         string googleBookId,
         string title,
         string? subTitle,
@@ -71,6 +74,11 @@ public sealed class Book : Entity
         };
 
         book._authors.AddRange(authors);
+
+        if (categories is not null)
+        {
+            book._categories.AddRange(categories);
+        }
 
         return book;
     }

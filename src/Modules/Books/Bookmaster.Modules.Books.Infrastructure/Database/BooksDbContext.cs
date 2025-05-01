@@ -13,6 +13,7 @@ public sealed class BooksDbContext(DbContextOptions<BooksDbContext> options)
 {
     internal DbSet<Author> Authors { get; set; }
     internal DbSet<Book> Books { get; set; }
+    internal DbSet<BookCategory> BookCategories { get; set; }
     internal DbSet<LibraryEntry> LibraryEntries { get; set; }
     internal DbSet<Person> People { get; set; }
 

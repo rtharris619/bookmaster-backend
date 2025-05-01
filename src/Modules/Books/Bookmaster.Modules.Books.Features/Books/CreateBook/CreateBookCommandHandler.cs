@@ -13,7 +13,8 @@ internal sealed class CreateBookCommandHandler(
     IGoogleBooksApi googleBooksApi,
     IBookRepository bookRepository,
     IAuthorRepository authorRepository,
-    IUnitOfWork unitOfWork) 
+    IBookCategoryRepository bookCategoryRepository,
+    IUnitOfWork unitOfWork)
     : ICommandHandler<CreateBookCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
@@ -42,8 +43,17 @@ internal sealed class CreateBookCommandHandler(
 
         List<Author> authors = await GetAuthors(googleBookResult.VolumeInfo.Authors, authorRepository);
 
+        List<BookCategory>? categories = null;
+        string[]? googleBookCategories = googleBookResult.VolumeInfo.Categories;
+
+        if (googleBookCategories is not null)
+        {
+            categories = await GetCategories(googleBookCategories, bookCategoryRepository);
+        }
+
         Result<Book> result = Book.Create(
             authors,
+            categories,
             googleBookResult.Id,
             googleBookResult.VolumeInfo.Title,
             googleBookResult.VolumeInfo.Subtitle,
@@ -84,5 +94,21 @@ internal sealed class CreateBookCommandHandler(
         }
 
         return authors;
+    }
+
+    private async Task<List<BookCategory>> GetCategories(string[] googleBookCategories, IBookCategoryRepository bookCategoryRepository)
+    {
+        List<BookCategory> categories = [];
+        foreach (string googleBookCategory in googleBookCategories)
+        {
+            BookCategory? category = await bookCategoryRepository.GetByNameAsync(googleBookCategory);
+            if (category is null)
+            {
+                category = BookCategory.Create(googleBookCategory);
+                bookCategoryRepository.Insert(category);
+            }
+            categories.Add(category);
+        }
+        return categories;
     }
 }
