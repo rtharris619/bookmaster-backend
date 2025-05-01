@@ -13,7 +13,8 @@ internal sealed class GetGoogleBookQueryHandler(
 {
     public async Task<Result<GoogleBookSearchResponseItem>> Handle(GetGoogleBookQuery request, CancellationToken cancellationToken)
     {
-        ApiResponse<GoogleBookSearchResponseItem> response = await googleBooksApi.GetBook(request.GoogleBookId, cancellationToken);
+        ApiResponse<GoogleBookSearchResponseItem> response = 
+            await googleBooksApi.GetBook(request.GoogleBookId, GoogleBookSearchProjection.Full, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {

@@ -1,6 +1,6 @@
-@Bookmaster.Api_HostAddress = http://localhost:5043
+@Bookmaster.Api_HostAddress = http://localhost:7000
 
-GET {{Bookmaster.Api_HostAddress}}/weatherforecast/
+DELETE {{Bookmaster.Api_HostAddress}}/library-entry/58A329B8-3785-44C3-AE9E-4E2AB75FDC8E
 Accept: application/json
 
 ###

@@ -18,7 +18,8 @@ internal sealed class CreateBookCommandHandler(
 {
     public async Task<Result<Guid>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
     {
-        ApiResponse<GoogleBookSearchResponseItem> response = await googleBooksApi.GetBook(request.GoogleBookId, cancellationToken);
+        ApiResponse<GoogleBookSearchResponseItem> response = 
+            await googleBooksApi.GetBook(request.GoogleBookId, GoogleBookSearchProjection.Full, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {

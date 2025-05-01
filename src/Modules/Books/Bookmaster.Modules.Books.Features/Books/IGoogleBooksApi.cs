@@ -10,8 +10,9 @@ public interface IGoogleBooksApi
         GoogleBookSearchQuery query,
         CancellationToken cancellationToken = default);
 
-    [Get("/volumes/{id}")]
+    [Get("/volumes/{id}?projection={projection}")]
     Task<ApiResponse<GoogleBookSearchResponseItem>> GetBook(
         string id,
+        string projection,
         CancellationToken cancellationToken = default);
 }

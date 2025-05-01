@@ -25,11 +25,12 @@ internal sealed class GoogleBookSearch : IEndpoint
             ISender sender,
             string q,
             string printType = "books",
+            string projection = GoogleBookSearchProjection.Full,
             int startIndex = 0,
             int maxResults = 10) =>
         {
             Result<GoogleBookSearchResponse>? result = await sender.Send(
-                new GoogleBookSearchQuery(q, printType, startIndex, maxResults));
+                new GoogleBookSearchQuery(q, printType, projection, startIndex, maxResults));
 
             if (result is null)
             {

@@ -22,7 +22,8 @@ internal sealed class CreateLibraryEntryCommandHandler(
 {
     public async Task<Result<Guid>> Handle(CreateLibraryEntryCommand request, CancellationToken cancellationToken)
     {
-        ApiResponse<GoogleBookSearchResponseItem> response = await googleBooksApi.GetBook(request.GoogleBookId, cancellationToken);
+        ApiResponse<GoogleBookSearchResponseItem> response = 
+            await googleBooksApi.GetBook(request.GoogleBookId, GoogleBookSearchProjection.Full, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
