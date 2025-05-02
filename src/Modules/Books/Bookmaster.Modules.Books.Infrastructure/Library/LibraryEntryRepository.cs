@@ -17,6 +17,7 @@ internal sealed class LibraryEntryRepository(BooksDbContext context) : ILibraryE
     {
         return context.LibraryEntries.Where(x => x.PersonId == personId)
             .Include(x => x.Book).ThenInclude(x => x.Authors)
+            .Include(x => x.Book).ThenInclude(x => x.Categories)
             .ToListAsync(cancellationToken);
     }
 

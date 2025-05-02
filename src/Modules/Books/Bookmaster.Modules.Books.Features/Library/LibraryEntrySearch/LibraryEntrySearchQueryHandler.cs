@@ -19,8 +19,14 @@ internal sealed class LibraryEntrySearchQueryHandler(ILibraryEntryRepository lib
         foreach (LibraryEntry libraryEntry in libraryEntries)
         {   
             Book book = libraryEntry.Book;
+
             IReadOnlyCollection<Author> authors = book.Authors;
             string[] authorNames = [.. authors.Select(x => x.Name)];
+            string flattenedAuthors = string.Join(", ", authorNames);
+
+            IReadOnlyCollection<BookCategory> bookCategories = book.Categories;
+            string[] categoryNames = [.. bookCategories.Select(x => x.Name)];
+            string flattenedCategories = string.Join(", ", categoryNames);
 
             result.Add(new LibraryEntriesResponse(
                 libraryEntry.Id,
@@ -31,8 +37,16 @@ internal sealed class LibraryEntrySearchQueryHandler(ILibraryEntryRepository lib
                 book.Subtitle,
                 book.Description, 
                 authorNames,
+                flattenedAuthors,
+                categoryNames,
+                flattenedCategories,
                 book.PageCount,
-                book.Thumbnail));
+                book.Thumbnail,
+                book.Publisher,
+                book.PublishedDate,
+                book.Language,
+                book.GoogleBookInfoLink,
+                book.GoogleBookPreviewLink));
         }
 
         return new LibraryEntrySearchResponse(libraryEntries.Count, result);

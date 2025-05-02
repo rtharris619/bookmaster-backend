@@ -11,5 +11,13 @@ public sealed record LibraryEntriesResponse(
     string? SubTitle,
     string? Description,
     string[] Authors,
+    string FlattenedAuthors,
+    string[] Categories,
+    string FlattenedCategories,
     int PageCount,
-    string? Thumbnail);
+    string? Thumbnail,
+    string? Publisher,
+    string? PublishedDate,
+    string Language,
+    string? GoogleBookInfoLink,
+    string? GoogleBookPreviewLink);
