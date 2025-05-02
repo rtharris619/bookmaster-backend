@@ -15,6 +15,7 @@ using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Infrastructure.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Infrastructure.People;
+using Bookmaster.Modules.Books.Features.Services;
 
 namespace Bookmaster.Modules.Books.Infrastructure;
 
@@ -49,8 +50,11 @@ public static class BooksModule
 
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
         services.AddScoped<ILibraryEntryRepository, LibraryEntryRepository>();
         services.AddScoped<IPersonRepository, PersonRepository>();
+
+        services.AddScoped<IBookService, BookService>();
     }
 
     private static void AddFeatureServices(this WebApplicationBuilder builder)

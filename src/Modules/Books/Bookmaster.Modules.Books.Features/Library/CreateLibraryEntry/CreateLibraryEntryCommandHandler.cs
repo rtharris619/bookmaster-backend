@@ -7,6 +7,7 @@ using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Features.Abstractions;
 using Bookmaster.Modules.Books.Features.Books;
 using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
+using Bookmaster.Modules.Books.Features.Services;
 using Refit;
 
 namespace Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
@@ -14,6 +15,7 @@ namespace Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 internal sealed class CreateLibraryEntryCommandHandler(
     IGoogleBooksApi googleBooksApi,
     IBookRepository bookRepository,
+    IBookService bookService,
     IAuthorRepository authorRepository,
     IBookCategoryRepository bookCategoryRepository,
     IPersonRepository personRepository,
@@ -43,29 +45,32 @@ internal sealed class CreateLibraryEntryCommandHandler(
 
         if (book is null)
         {
-            List<Author> authors = await GetAuthors(googleBookResult.VolumeInfo.Authors, authorRepository);
+            GoogleBookSearchResponseVolumeInfo volumeInfo = googleBookResult.VolumeInfo;
+
+            List<Author> authors = await bookService.GetAuthors(volumeInfo.Authors, authorRepository);
             List<BookCategory>? categories = null;
-            string[]? googleBookCategories = googleBookResult.VolumeInfo.Categories;
+            string[]? googleBookCategories = volumeInfo.Categories;
 
             if (googleBookCategories is not null)
             {
-                categories = await GetCategories(googleBookCategories, bookCategoryRepository);
+                categories = await bookService.GetBookCategories(googleBookCategories, bookCategoryRepository);
             }
 
             Result<Book> bookResult = Book.Create(
-                authors,
-                categories,
-                googleBookResult.Id,
-                googleBookResult.VolumeInfo.Title,
-                googleBookResult.VolumeInfo.Subtitle,
-                googleBookResult.VolumeInfo.Description,
-                googleBookResult.SearchInfo?.TextSnippet,
-                googleBookResult.VolumeInfo.InfoLink,
-                googleBookResult.VolumeInfo.PageCount,
-                googleBookResult.VolumeInfo.ImageLinks.SmallThumbnail,
-                googleBookResult.VolumeInfo.ImageLinks.Thumbnail,
-                googleBookResult.VolumeInfo.Publisher,
-                googleBookResult.VolumeInfo.PublishedDate);
+                authors: authors,
+                categories: categories,
+                googleBookId: googleBookResult.Id,
+                title: volumeInfo.Title,
+                subTitle: volumeInfo.Subtitle,
+                description: volumeInfo.Description,                
+                pageCount: volumeInfo.PageCount,
+                printType: volumeInfo.PrintType,
+                thumbnail: volumeInfo.ImageLinks.Thumbnail,
+                publisher: volumeInfo.Publisher,
+                publishedDate: volumeInfo.PublishedDate,
+                language: volumeInfo.Language,
+                googleBookInfoLink: volumeInfo.InfoLink,
+                googleBookPreviewLink: volumeInfo.PreviewLink);
 
             if (bookResult.IsFailure)
             {
@@ -106,39 +111,5 @@ internal sealed class CreateLibraryEntryCommandHandler(
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return libraryEntryResult.Value.Id;
-    }
-
-    private async Task<List<Author>> GetAuthors(string[] googleBookAuthors, IAuthorRepository authorRepository)
-    {
-        List<Author> authors = [];
-
-        foreach (string googleBookAuthor in googleBookAuthors)
-        {
-            Author? author = await authorRepository.GetByNameAsync(googleBookAuthor);
-            if (author is null)
-            {
-                author = Author.Create(googleBookAuthor);
-                authorRepository.Insert(author);
-            }
-            authors.Add(author);
-        }
-
-        return authors;
-    }
-
-    private async Task<List<BookCategory>> GetCategories(string[] googleBookCategories, IBookCategoryRepository bookCategoryRepository)
-    {
-        List<BookCategory> categories = [];
-        foreach (string googleBookCategory in googleBookCategories)
-        {
-            BookCategory? category = await bookCategoryRepository.GetByNameAsync(googleBookCategory);
-            if (category is null)
-            {
-                category = BookCategory.Create(googleBookCategory);
-                bookCategoryRepository.Insert(category);
-            }
-            categories.Add(category);
-        }
-        return categories;
     }
 }

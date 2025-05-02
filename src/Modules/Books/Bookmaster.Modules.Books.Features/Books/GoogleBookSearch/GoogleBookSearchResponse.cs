@@ -10,8 +10,7 @@ public sealed record GoogleBookSearchResponseItem(
     string Id,
     string ETag,
     string SelfLink,
-    GoogleBookSearchResponseVolumeInfo VolumeInfo,
-    GoogleBookSearchResponseSearchInfo? SearchInfo);
+    GoogleBookSearchResponseVolumeInfo VolumeInfo);
 
 public sealed record GoogleBookSearchResponseVolumeInfo(
     string Title, 
@@ -25,7 +24,7 @@ public sealed record GoogleBookSearchResponseVolumeInfo(
     string PrintType,
     string[]? Categories,
     GoogleBookSearchResponseImageLinks ImageLinks,
-    string? Language,
+    string Language,
     string? PreviewLink,
     string? InfoLink,
     string? CanonicalVolumeLink);
@@ -37,5 +36,3 @@ public sealed record GoogleBookSearchResponseImageLinks(
     string? Medium,
     string? Large,
     string? ExtraLarge);
-
-public sealed record GoogleBookSearchResponseSearchInfo(string? TextSnippet);

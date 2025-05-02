@@ -3,6 +3,7 @@ using System;
 using Bookmaster.Modules.Books.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    partial class BooksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502111419_Book_Categories")]
+    partial class Book_Categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,23 +104,9 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("google_book_info_link");
 
-                    b.Property<string>("GoogleBookPreviewLink")
-                        .HasColumnType("text")
-                        .HasColumnName("google_book_preview_link");
-
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("language");
-
                     b.Property<int>("PageCount")
                         .HasColumnType("integer")
                         .HasColumnName("page_count");
-
-                    b.Property<string>("PrintType")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("print_type");
 
                     b.Property<string>("PublishedDate")
                         .HasColumnType("text")
@@ -127,9 +116,17 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("publisher");
 
+                    b.Property<string>("SmallThumbnail")
+                        .HasColumnType("text")
+                        .HasColumnName("small_thumbnail");
+
                     b.Property<string>("Subtitle")
                         .HasColumnType("text")
                         .HasColumnName("subtitle");
+
+                    b.Property<string>("TextSnippet")
+                        .HasColumnType("text")
+                        .HasColumnName("text_snippet");
 
                     b.Property<string>("Thumbnail")
                         .HasColumnType("text")

@@ -8,6 +8,8 @@ internal sealed class BookCategoryConfiguration : IEntityTypeConfiguration<BookC
 {
     public void Configure(EntityTypeBuilder<BookCategory> builder)
     {
+        builder.ToTable("book_categories");
+
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Name)
@@ -17,7 +19,7 @@ internal sealed class BookCategoryConfiguration : IEntityTypeConfiguration<BookC
         builder.HasMany<Book>().WithMany(x => x.Categories)
             .UsingEntity(joinBuilder =>
             {
-                joinBuilder.ToTable("book_categories");
+                joinBuilder.ToTable("book_book_categories");
             });
     }
 }

@@ -22,21 +22,23 @@ public sealed class Book : Entity
 
     public string Description { get; private set; }
 
-    public string? TextSnippet { get; private set; }
-
-    public string GoogleBookId { get; private set; }
-
-    public string? GoogleBookInfoLink { get; set; }
+    public string GoogleBookId { get; private set; }    
 
     public int PageCount { get; private set; }
 
-    public string? Thumbnail { get; private set; }
+    public string PrintType { get; private set; }
 
-    public string? SmallThumbnail { get; private set; }
+    public string? Thumbnail { get; private set; }
 
     public string? Publisher { get; private set; }
 
     public string? PublishedDate { get; private set; }
+
+    public string Language { get; private set; }
+
+    public string? GoogleBookInfoLink { get; private set; }
+
+    public string? GoogleBookPreviewLink { get; private set; }
 
     public IReadOnlyCollection<Author> Authors => [.. _authors];
     public IReadOnlyCollection<BookCategory> Categories => [.. _categories];
@@ -48,14 +50,15 @@ public sealed class Book : Entity
         string googleBookId,
         string title,
         string? subTitle,
-        string description,
-        string? textSnippet,
-        string? googleBookInfoLink,
+        string description,        
         int pageCount,
+        string printType,
         string? thumbnail,
-        string? smallThumbnail,
         string? publisher,
-        string? publishedDate)
+        string? publishedDate,
+        string language,
+        string? googleBookInfoLink,
+        string? googleBookPreviewLink)
     {
         var book = new Book
         {
@@ -63,14 +66,15 @@ public sealed class Book : Entity
             GoogleBookId = googleBookId,
             Title = title,
             Subtitle = subTitle,
-            Description = description,
-            TextSnippet = textSnippet,
-            GoogleBookInfoLink = googleBookInfoLink,
+            Description = description,            
             PageCount = pageCount,
+            PrintType = printType,
             Thumbnail = thumbnail,
-            SmallThumbnail = smallThumbnail,
             Publisher = publisher,
-            PublishedDate = publishedDate
+            PublishedDate = publishedDate,
+            Language = language,
+            GoogleBookInfoLink = googleBookInfoLink,
+            GoogleBookPreviewLink = googleBookPreviewLink
         };
 
         book._authors.AddRange(authors);
