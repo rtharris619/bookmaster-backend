@@ -20,7 +20,7 @@ public sealed class Book : Entity
 
     public string? Subtitle { get; private set; }
 
-    public string Description { get; private set; }
+    public string? Description { get; private set; }
 
     public string GoogleBookId { get; private set; }    
 
@@ -50,7 +50,7 @@ public sealed class Book : Entity
         string googleBookId,
         string title,
         string? subTitle,
-        string description,        
+        string? description,
         int pageCount,
         string printType,
         string? thumbnail,
@@ -85,5 +85,50 @@ public sealed class Book : Entity
         }
 
         return book;
+    }    
+
+    public void Update(
+        List<Author> authors,
+        List<BookCategory> categories,
+        string googleBookId,
+        string title,
+        string? subTitle,
+        string? description,
+        int pageCount,
+        string printType,
+        string? thumbnail,
+        string? publisher,
+        string? publishedDate,
+        string language,
+        string? googleBookInfoLink,
+        string? googleBookPreviewLink)
+    {
+        UpdateAuthors(authors);
+        UpdateCategories(categories);
+
+        GoogleBookId = googleBookId;
+        Title = title;
+        Subtitle = subTitle;
+        Description = description;
+        PageCount = pageCount;
+        PrintType = printType;
+        Thumbnail = thumbnail;
+        Publisher = publisher;
+        PublishedDate = publishedDate;
+        Language = language;
+        GoogleBookInfoLink = googleBookInfoLink;
+        GoogleBookPreviewLink = googleBookPreviewLink;
+    }
+
+    private void UpdateAuthors(List<Author> authors)
+    {
+        _authors.Clear();
+        _authors.AddRange(authors);
+    }
+
+    private void UpdateCategories(List<BookCategory> categories)
+    {
+        _categories.Clear();
+        _categories.AddRange(categories);
     }
 }

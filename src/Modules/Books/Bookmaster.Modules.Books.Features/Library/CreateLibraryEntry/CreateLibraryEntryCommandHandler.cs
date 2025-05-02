@@ -41,28 +41,24 @@ internal sealed class CreateLibraryEntryCommandHandler(
 
         GoogleBookSearchResponseItem googleBookResult = response.Content;
 
-        Book? book = await bookRepository.GetByGoogleBookIdAsync(googleBookResult.Id, cancellationToken);
+        Book? book = await bookRepository.GetByGoogleBookIdAsync(googleBookResult.Id, cancellationToken);       
 
+        GoogleBookSearchResponseVolumeInfo volumeInfo = googleBookResult.VolumeInfo;
+
+        List<Author> authors = await bookService.GetAuthors(volumeInfo.Authors, authorRepository);
+
+        string[] googleBookCategories = volumeInfo.Categories;
+        List<BookCategory> categories = await bookService.GetBookCategories(googleBookCategories, bookCategoryRepository);
+        
         if (book is null)
-        {
-            GoogleBookSearchResponseVolumeInfo volumeInfo = googleBookResult.VolumeInfo;
-
-            List<Author> authors = await bookService.GetAuthors(volumeInfo.Authors, authorRepository);
-            List<BookCategory>? categories = null;
-            string[]? googleBookCategories = volumeInfo.Categories;
-
-            if (googleBookCategories is not null)
-            {
-                categories = await bookService.GetBookCategories(googleBookCategories, bookCategoryRepository);
-            }
-
+        {           
             Result<Book> bookResult = Book.Create(
                 authors: authors,
                 categories: categories,
                 googleBookId: googleBookResult.Id,
                 title: volumeInfo.Title,
                 subTitle: volumeInfo.Subtitle,
-                description: volumeInfo.Description,                
+                description: volumeInfo.Description,
                 pageCount: volumeInfo.PageCount,
                 printType: volumeInfo.PrintType,
                 thumbnail: volumeInfo.ImageLinks.Thumbnail,
@@ -80,6 +76,24 @@ internal sealed class CreateLibraryEntryCommandHandler(
             bookRepository.Insert(bookResult.Value);
 
             book = bookResult.Value;
+        }
+        else
+        {
+            book.Update(
+                authors: authors,
+                categories: categories,
+                googleBookId: googleBookResult.Id,
+                title: volumeInfo.Title,
+                subTitle: volumeInfo.Subtitle,
+                description: volumeInfo.Description,
+                pageCount: volumeInfo.PageCount,
+                printType: volumeInfo.PrintType,
+                thumbnail: volumeInfo.ImageLinks.Thumbnail,
+                publisher: volumeInfo.Publisher,
+                publishedDate: volumeInfo.PublishedDate,
+                language: volumeInfo.Language,
+                googleBookInfoLink: volumeInfo.InfoLink,
+                googleBookPreviewLink: volumeInfo.PreviewLink);
         }
 
         Person? person = await personRepository.GetAsync(request.PersonId, cancellationToken);
