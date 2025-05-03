@@ -85,7 +85,7 @@ public sealed class Book : Entity
         }
 
         return book;
-    }    
+    }
 
     public void Update(
         List<Author> authors,

@@ -2,6 +2,7 @@
 using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
+using Bookmaster.Modules.Books.Domain.Tags;
 using Bookmaster.Modules.Books.Features.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -16,6 +17,7 @@ public sealed class BooksDbContext(DbContextOptions<BooksDbContext> options)
     internal DbSet<BookCategory> BookCategories { get; set; }
     internal DbSet<LibraryEntry> LibraryEntries { get; set; }
     internal DbSet<Person> People { get; set; }
+    internal DbSet<Tag> Tags { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
