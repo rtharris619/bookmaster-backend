@@ -14,7 +14,7 @@ internal sealed class GetGoogleBook : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet("books/{googleBookId}", async (
+        routeBuilder.MapGet(EndpointRoots.Books + "/{googleBookId}", async (
             ISender sender,
             string GoogleBookId) =>
         {

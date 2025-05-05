@@ -13,7 +13,7 @@ internal sealed class CreateBook : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost("books", async (ISender sender, CreateBookRequest request) =>
+        routeBuilder.MapPost(EndpointRoots.Books, async (ISender sender, CreateBookRequest request) =>
         {
             Result<Guid> result = await sender.Send(new CreateBookCommand(request.GoogleBookId));
 

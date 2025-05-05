@@ -15,7 +15,7 @@ internal sealed class AddTagsToLibraryEntry : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost("library-entry/tags", async (ISender sender, AddTagsToLibraryEntryRequest request) =>
+        routeBuilder.MapPost(EndpointRoots.LibraryEntries + "/tags", async (ISender sender, AddTagsToLibraryEntryRequest request) =>
         {
             Result result = await sender.Send(new AddTagsToLibraryEntryCommand(request.LibraryEntryId, request.Tags));
 

@@ -14,7 +14,7 @@ internal sealed class CreateLibraryEntry : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost("library-entry", async (ISender sender, CreateLibraryEntryRequest request) =>
+        routeBuilder.MapPost(EndpointRoots.LibraryEntries, async (ISender sender, CreateLibraryEntryRequest request) =>
         {
             Result<Guid> result = await sender.Send(new CreateLibraryEntryCommand(request.GoogleBookId, request.PersonId));
 

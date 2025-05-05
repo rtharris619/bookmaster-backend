@@ -21,7 +21,7 @@ internal sealed class GoogleBookSearch : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet("books/search", async (
+        routeBuilder.MapGet(EndpointRoots.Books + "/search", async (
             ISender sender,
             string q,
             string printType = "books",
