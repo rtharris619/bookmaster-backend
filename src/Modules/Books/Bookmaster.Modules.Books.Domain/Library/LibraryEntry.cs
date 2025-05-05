@@ -35,7 +35,12 @@ public sealed class LibraryEntry : Entity
     public void AddTags(
         List<Tag> tags)
     {
-        _tags.Clear();
+        RemoveAllTags();
         _tags.AddRange(tags);
+    }
+
+    public void RemoveAllTags()
+    {
+        _tags.Clear();
     }
 }

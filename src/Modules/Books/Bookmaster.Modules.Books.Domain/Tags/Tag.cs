@@ -9,7 +9,7 @@ public sealed class Tag : Entity
     public Guid Id { get; private set; }
     public string Name { get; private set; }
 
-    public Tag Create(string name)
+    public static Tag Create(string name)
     {
         return new Tag
         {

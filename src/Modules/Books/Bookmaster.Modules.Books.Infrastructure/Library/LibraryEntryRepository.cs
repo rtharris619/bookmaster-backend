@@ -9,7 +9,9 @@ internal sealed class LibraryEntryRepository(BooksDbContext context) : ILibraryE
     public Task<LibraryEntry?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return context.LibraryEntries
-            .Include(x => x.Book)
+            .Include(x => x.Book).ThenInclude(x => x.Authors)
+            .Include(x => x.Book).ThenInclude(x => x.Categories)
+            .Include(x => x.Tags)
             .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
     }
 
