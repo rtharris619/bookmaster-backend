@@ -12,9 +12,7 @@ internal sealed class LibraryEntrySearchQueryHandler(ILibraryEntryRepository lib
     {
         var result = new List<LibraryEntriesResponse>();
 
-        Result<List<LibraryEntry>> libraryEntryResults = await libraryEntryRepository.GetByPersonIdAsync(request.PersonId, cancellationToken);
-
-        List<LibraryEntry> libraryEntries = libraryEntryResults.Value;
+        List<LibraryEntry> libraryEntries = await libraryEntryRepository.GetByPersonIdAsync(request.PersonId, cancellationToken);
 
         foreach (LibraryEntry libraryEntry in libraryEntries)
         {   
