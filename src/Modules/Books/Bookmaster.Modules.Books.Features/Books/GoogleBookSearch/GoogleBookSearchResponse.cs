@@ -24,6 +24,7 @@ public sealed record GoogleBookSearchResponseVolumeInfo(
     string PrintType,
     string[] Categories,
     GoogleBookSearchResponseImageLinks ImageLinks,
+    GoogleBookSearchResponseIndustryIdentifiers[]? IndustryIdentifiers,
     string Language,
     string? PreviewLink,
     string? InfoLink,
@@ -36,3 +37,7 @@ public sealed record GoogleBookSearchResponseImageLinks(
     string? Medium,
     string? Large,
     string? ExtraLarge);
+
+public sealed record GoogleBookSearchResponseIndustryIdentifiers(
+    string Type,
+    string Identifier);

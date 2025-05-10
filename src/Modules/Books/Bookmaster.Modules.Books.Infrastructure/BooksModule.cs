@@ -18,6 +18,7 @@ using Bookmaster.Modules.Books.Infrastructure.People;
 using Bookmaster.Modules.Books.Features.Services;
 using Bookmaster.Modules.Books.Domain.Tags;
 using Bookmaster.Modules.Books.Infrastructure.Tags;
+using Bookmaster.Modules.Books.Features.OpenLibrary;
 
 namespace Bookmaster.Modules.Books.Infrastructure;
 
@@ -68,5 +69,12 @@ public static class BooksModule
                 ContentSerializer = new NewtonsoftJsonContentSerializer()
             })
             .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://www.googleapis.com/books/v1"));
+
+        builder.Services
+            .AddRefitClient<IOpenLibraryApi>(new RefitSettings
+            {
+                ContentSerializer = new NewtonsoftJsonContentSerializer()
+            })
+            .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://openlibrary.org"));
     }
 }
