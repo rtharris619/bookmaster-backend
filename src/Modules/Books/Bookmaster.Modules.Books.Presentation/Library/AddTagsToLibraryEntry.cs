@@ -1,6 +1,7 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
+using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Features.Library.AddTagsToLibraryEntry;
 using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 using MediatR;
@@ -15,9 +16,10 @@ internal sealed class AddTagsToLibraryEntry : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost(EndpointRoots.LibraryEntries + "/tags", async (ISender sender, AddTagsToLibraryEntryRequest request) =>
+        routeBuilder.MapPost(EndpointRoots.LibraryEntries + "/{libraryEntryId}/tags", 
+            async (ISender sender, Guid libraryEntryId, AddTagsToLibraryEntryRequest request) =>
         {
-            Result result = await sender.Send(new AddTagsToLibraryEntryCommand(request.LibraryEntryId, request.Tags));
+            Result result = await sender.Send(new AddTagsToLibraryEntryCommand(libraryEntryId, request.Tags));
 
             return result.Match(Results.NoContent, ApiResults.Problem);
         });
@@ -25,7 +27,6 @@ internal sealed class AddTagsToLibraryEntry : IEndpoint
 
     internal sealed class AddTagsToLibraryEntryRequest
     {
-        public Guid LibraryEntryId { get; init; }
-        public string[] Tags { get; init; }
+        public string[]? Tags { get; init; }
     }
 }
