@@ -1,4 +1,4 @@
-﻿namespace Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
+﻿namespace Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
 
 public sealed record GoogleBookSearchResponse(
     string Kind,

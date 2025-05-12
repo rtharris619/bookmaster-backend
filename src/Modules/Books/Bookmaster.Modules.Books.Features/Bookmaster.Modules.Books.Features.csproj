@@ -8,7 +8,10 @@
     <PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GoogleBooks\" />
+    <Folder Include="OpenLibrary\GetOpenLibraryEditions\" />
+    <Folder Include="OpenLibrary\GetOpenLibraryBook\" />
+    <Folder Include="OpenLibrary\GetOpenLibraryAuthor\" />
+    <Folder Include="OpenLibrary\GetOpenLibraryBookCover\" />
     <Folder Include="Person\" />
   </ItemGroup>
 </Project>

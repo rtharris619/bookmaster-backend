@@ -1,9 +1,10 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.Messaging;
+using Bookmaster.Modules.Books.Features.GoogleBooks;
 using Microsoft.Extensions.Logging;
 using Refit;
 
-namespace Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
+namespace Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
 
 internal sealed class GoogleBookSearchQueryHandler(
     IGoogleBooksApi googleBooksApi,

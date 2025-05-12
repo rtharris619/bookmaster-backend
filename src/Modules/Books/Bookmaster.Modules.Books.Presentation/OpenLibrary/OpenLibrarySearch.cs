@@ -16,8 +16,8 @@ internal sealed class OpenLibrarySearch : IEndpoint
         routeBuilder.MapGet(EndpointRoots.OpenLibrary + "/search", async (
             ISender sender,
             string q,
-            int? page = null,
-            int? limit = null) =>
+            int? page = 1,
+            int? limit = 3) =>
         {
             Result<OpenLibrarySearchResponse>? result = await sender.Send(
                 new OpenLibrarySearchQuery(q, page, limit));

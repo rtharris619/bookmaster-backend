@@ -1,20 +1,20 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
-using Bookmaster.Modules.Books.Features.Books.GetGoogleBook;
-using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
+using Bookmaster.Modules.Books.Features.GoogleBooks.GetGoogleBook;
+using Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace Bookmaster.Modules.Books.Presentation.Books;
+namespace Bookmaster.Modules.Books.Presentation.GoogleBooks;
 
 internal sealed class GetGoogleBook : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.Books + "/{googleBookId}", async (
+        routeBuilder.MapGet(EndpointRoots.GoogleBooks + "/{googleBookId}", async (
             ISender sender,
             string GoogleBookId) =>
         {

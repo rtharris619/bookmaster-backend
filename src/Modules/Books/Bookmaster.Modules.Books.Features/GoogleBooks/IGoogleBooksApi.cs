@@ -1,7 +1,7 @@
-﻿using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
+﻿using Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
 using Refit;
 
-namespace Bookmaster.Modules.Books.Features.Books;
+namespace Bookmaster.Modules.Books.Features.GoogleBooks;
 
 public interface IGoogleBooksApi
 {

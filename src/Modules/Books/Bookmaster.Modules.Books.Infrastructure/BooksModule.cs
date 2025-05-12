@@ -6,7 +6,6 @@ using Bookmaster.Modules.Books.Infrastructure.Database;
 using Refit;
 using Npgsql;
 using Microsoft.AspNetCore.Builder;
-using Bookmaster.Modules.Books.Features.Books;
 using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Infrastructure.Books;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +18,8 @@ using Bookmaster.Modules.Books.Features.Services;
 using Bookmaster.Modules.Books.Domain.Tags;
 using Bookmaster.Modules.Books.Infrastructure.Tags;
 using Bookmaster.Modules.Books.Features.OpenLibrary;
+using Bookmaster.Modules.Books.Features.GoogleBooks;
+using Newtonsoft.Json;
 
 namespace Bookmaster.Modules.Books.Infrastructure;
 

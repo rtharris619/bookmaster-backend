@@ -5,8 +5,8 @@ using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Features.Abstractions;
-using Bookmaster.Modules.Books.Features.Books;
-using Bookmaster.Modules.Books.Features.Books.GoogleBookSearch;
+using Bookmaster.Modules.Books.Features.GoogleBooks;
+using Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
 using Bookmaster.Modules.Books.Features.Services;
 using Refit;
 
