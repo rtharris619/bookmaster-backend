@@ -34,6 +34,7 @@ internal sealed class OpenLibraryWorkQueryHandler(
             result = new OpenLibraryWorkResponse(
                 content.Title,
                 content.Key,
+                content.Authors,
                 content.Description?.Value,
                 content.Subject_Places,
                 content.Subjects,
