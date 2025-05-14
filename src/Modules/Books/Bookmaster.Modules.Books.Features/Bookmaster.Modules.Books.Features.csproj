@@ -9,7 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OpenLibrary\GetOpenLibraryBook\" />
-    <Folder Include="OpenLibrary\GetOpenLibraryAuthor\" />
     <Folder Include="OpenLibrary\GetOpenLibraryBookCover\" />
     <Folder Include="Person\" />
   </ItemGroup>
