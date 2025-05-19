@@ -12,11 +12,17 @@ internal sealed class OpenLibrarySearchQueryHandler(
 {
     public async Task<Result<OpenLibrarySearchResponse>> Handle(OpenLibrarySearchQuery request, CancellationToken cancellationToken)
     {
-        ApiResponse<OpenLibrarySearchResponse> response = await openLibraryApi.Search(request.q, request.page, request.limit, cancellationToken);
+        ApiResponse<OpenLibrarySearchResponse> response = await openLibraryApi.Search(request.Query, request.Offset, request.Limit, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
             logger.LogWarning("Failed to search books on the Open Library API. Status code {StatusCode}", response.StatusCode);
+            return null;
+        }
+
+        if (response.Error is not null || response.Content is null)
+        {
+            logger.LogWarning("Failed to search books on the Open Library API. Error: {Error}", response.Error?.Content);
             return null;
         }
 

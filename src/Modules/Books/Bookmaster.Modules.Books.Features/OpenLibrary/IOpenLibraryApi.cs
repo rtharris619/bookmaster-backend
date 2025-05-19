@@ -11,7 +11,7 @@ public interface IOpenLibraryApi
     [Get("/search.json")]
     Task<ApiResponse<OpenLibrarySearchResponse>> Search(
         string q,
-        int? page = null,
+        int? offset = null,
         int? limit = null,
         CancellationToken cancellationToken = default);
 
