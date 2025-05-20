@@ -35,11 +35,16 @@ internal sealed class OpenLibraryWorkQueryHandler(
                 content.Title,
                 content.Key,
                 content.Authors,
+                content.Covers,
                 content.Description?.Value,
+                content.First_Publish_Date,
                 content.Subject_Places,
                 content.Subjects,
                 content.Subject_People,
-                content.Subject_Times);
+                content.Subject_Times,
+                content.Cover_Edition,
+                content.Latest_Revision,
+                content.Revision);
         }
         else
         {

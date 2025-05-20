@@ -8,8 +8,6 @@
     <PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="OpenLibrary\GetOpenLibraryBook\" />
-    <Folder Include="OpenLibrary\GetOpenLibraryBookCover\" />
     <Folder Include="Person\" />
   </ItemGroup>
 </Project>

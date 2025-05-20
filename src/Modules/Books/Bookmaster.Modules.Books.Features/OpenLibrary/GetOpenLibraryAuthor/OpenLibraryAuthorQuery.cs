@@ -2,5 +2,4 @@
 
 namespace Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryAuthor;
 
-public sealed record OpenLibraryAuthorQuery(string AuthorKey)
-    : IQuery<OpenLibraryAuthorResponse>;
+public sealed record OpenLibraryAuthorQuery(string AuthorKey) : IQuery<OpenLibraryAuthorResponse>;

@@ -1,4 +1,5 @@
 ﻿using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryAuthor;
+using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryBook;
 using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryEditions;
 using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryWork;
 using Bookmaster.Modules.Books.Features.OpenLibrary.OpenLibrarySearch;
@@ -22,6 +23,11 @@ public interface IOpenLibraryApi
 
     [Get("/works/{key}.json")]
     Task<ApiResponse<OpenLibraryWorkResponseV2>> GetWorkV2(
+        string key,
+        CancellationToken cancellationToken = default);
+
+    [Get("/books/{key}.json")]
+    Task<ApiResponse<OpenLibraryBookResponse>> GetBook(
         string key,
         CancellationToken cancellationToken = default);
 
