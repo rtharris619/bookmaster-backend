@@ -13,7 +13,7 @@ internal sealed class LibraryEntrySearch : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.LibraryEntries + "/search", async (ISender sender, Guid personId, string? q = null) =>
+        routeBuilder.MapGet(Endpoints.LibraryEntries + "/search", async (ISender sender, Guid personId, string? q = null) =>
         {
             Result<LibraryEntrySearchResponse>? result = await sender.Send(new LibraryEntrySearchQuery(personId, q));
 

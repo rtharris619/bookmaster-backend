@@ -22,7 +22,7 @@ public sealed class Book : Entity
 
     public string? Description { get; private set; }
 
-    public string GoogleBookId { get; private set; }    
+    public string GoogleBookId { get; private set; }
 
     public int PageCount { get; private set; }
 

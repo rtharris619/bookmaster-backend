@@ -15,7 +15,7 @@ internal sealed class GetOpenLibraryEditions : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.OpenLibrary + "/works/{key}/editions", async(
+        routeBuilder.MapGet(Endpoints.OpenLibrary + "/works/{key}/editions", async(
             ISender sender,
             string key,
             int limit = 3,

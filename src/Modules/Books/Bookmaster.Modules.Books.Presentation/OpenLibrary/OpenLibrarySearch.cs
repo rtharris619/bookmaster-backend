@@ -13,7 +13,7 @@ internal sealed class OpenLibrarySearch : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.OpenLibrary + "/search", async (
+        routeBuilder.MapGet(Endpoints.OpenLibrary + "/search", async (
             ISender sender,
             string q,
             int? offset = 0,

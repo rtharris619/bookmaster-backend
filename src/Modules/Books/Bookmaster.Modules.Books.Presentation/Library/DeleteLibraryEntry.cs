@@ -13,7 +13,7 @@ internal sealed class DeleteLibraryEntry : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapDelete(EndpointRoots.LibraryEntries + "/{id}", async (ISender sender, Guid Id) =>
+        routeBuilder.MapDelete(Endpoints.LibraryEntries + "/{id}", async (ISender sender, Guid Id) =>
         {
             Result result = await sender.Send(new DeleteLibraryEntryCommand(Id));
 

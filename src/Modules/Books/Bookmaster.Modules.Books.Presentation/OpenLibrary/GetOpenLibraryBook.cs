@@ -13,7 +13,7 @@ internal sealed class GetOpenLibraryBook : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.OpenLibrary + "/books/{key}", 
+        routeBuilder.MapGet(Endpoints.OpenLibrary + "/books/{key}", 
             async(ISender sender, string key) =>
         {
             Result<OpenLibraryBookResponse> result = await sender.Send(new OpenLibraryBookQuery(key));

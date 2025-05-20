@@ -13,7 +13,7 @@ internal sealed class GetOpenLibraryWork : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.OpenLibrary + "/works/{key}", async(
+        routeBuilder.MapGet(Endpoints.OpenLibrary + "/works/{key}", async(
             ISender sender,
             string key) =>
         {

@@ -3,12 +3,11 @@ using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
 using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Features.Library.AddTagsToLibraryEntry;
-using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using static Bookmaster.Modules.Books.Presentation.Library.CreateLibraryEntry;
+using static Bookmaster.Modules.Books.Presentation.Library.CreateLibraryEntryObsolete;
 
 namespace Bookmaster.Modules.Books.Presentation.Library;
 
@@ -16,7 +15,7 @@ internal sealed class AddTagsToLibraryEntry : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost(EndpointRoots.LibraryEntries + "/{libraryEntryId}/tags", 
+        routeBuilder.MapPost(Endpoints.LibraryEntries + "/{libraryEntryId}/tags", 
             async (ISender sender, Guid libraryEntryId, AddTagsToLibraryEntryRequest request) =>
         {
             Result result = await sender.Send(new AddTagsToLibraryEntryCommand(libraryEntryId, request.Tags));

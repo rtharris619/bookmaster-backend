@@ -19,12 +19,12 @@ internal sealed class GetGoogleBookQueryHandler(
 
         if (!response.IsSuccessStatusCode)
         {
-            return Result.Failure<GoogleBookSearchResponseItem>(BookErrors.ApiResponseFailure());
+            return Result.Failure<GoogleBookSearchResponseItem>(BookErrors.GoogleBookApiResponseFailure());
         }
 
         if (response.Content is null)
         {
-            return Result.Failure<GoogleBookSearchResponseItem>(BookErrors.NotFound(request.GoogleBookId));
+            return Result.Failure<GoogleBookSearchResponseItem>(BookErrors.GoogleBookNotFound(request.GoogleBookId));
         }
 
         GoogleBookSearchResponseItem googleBookResult = response.Content;

@@ -13,7 +13,7 @@ internal sealed class GetOpenLibraryAuthor : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(EndpointRoots.OpenLibrary + "/authors/{key}", async(
+        routeBuilder.MapGet(Endpoints.OpenLibrary + "/authors/{key}", async(
             ISender sender,
             string key) =>
         { 
