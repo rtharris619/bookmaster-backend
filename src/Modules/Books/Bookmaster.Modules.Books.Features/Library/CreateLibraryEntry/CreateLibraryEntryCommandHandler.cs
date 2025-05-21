@@ -6,137 +6,130 @@ using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Features.Abstractions;
 using Bookmaster.Modules.Books.Features.GoogleBooks;
-using Bookmaster.Modules.Books.Features.OpenLibrary;
-using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryAuthor;
-using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryBook;
-using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryWork;
+using Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
+using Bookmaster.Modules.Books.Features.Services;
 using Refit;
 
 namespace Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 
-public sealed class CreateLibraryEntryCommandHandler(
-    IOpenLibraryApi openLibraryApi)
+internal sealed class CreateLibraryEntryCommandHandler(
+    IGoogleBooksApi googleBooksApi,
+    IBookRepository bookRepository,
+    IBookService bookService,
+    IAuthorRepository authorRepository,
+    IBookCategoryRepository bookCategoryRepository,
+    IPersonRepository personRepository,
+    ILibraryEntryRepository libraryEntryRepository,
+    IUnitOfWork unitOfWork,
+    IDateTimeProvider dateTimeProvider)
     : ICommandHandler<CreateLibraryEntryCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateLibraryEntryCommand request, CancellationToken cancellationToken)
     {
-        // 1. Get the Open Library Work
+        ApiResponse<GoogleBookSearchResponseItem> response = 
+            await googleBooksApi.GetBook(request.GoogleBookId, GoogleBookSearchProjection.Full, cancellationToken);
 
-        ApiResponse<OpenLibraryWorkResponse> getOpenLibraryWorkResponse =
-            await openLibraryApi.GetWork(request.OpenLibraryWorkKey, cancellationToken);
-
-        if (!getOpenLibraryWorkResponse.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            return Result.Failure<Guid>(BookErrors.OpenLibraryApiResponseFailure());
+            return Result.Failure<Guid>(BookErrors.GoogleBookApiResponseFailure());
         }
 
-        OpenLibraryWorkResponse openLibraryWorkResult = null;
-
-        if (getOpenLibraryWorkResponse.Error is not null)
+        if (response.Content is null)
         {
-            // Get work v2
-            ApiResponse<OpenLibraryWorkResponseV2> getOpenLibraryWorkResponseV2 =
-                await openLibraryApi.GetWorkV2(request.OpenLibraryWorkKey, cancellationToken);
+            return Result.Failure<Guid>(BookErrors.GoogleBookNotFound(request.GoogleBookId));
+        }
 
-            if (!getOpenLibraryWorkResponseV2.IsSuccessStatusCode)
+        if (response.Error is not null)
+        {
+            ApiException error = response.Error;
+            return Result.Failure<Guid>(BookErrors.GoogleBookError(request.GoogleBookId, error.Message));
+        }
+
+        GoogleBookSearchResponseItem googleBookResult = response.Content;
+
+        Book? book = await bookRepository.GetByGoogleBookIdAsync(googleBookResult.Id, cancellationToken);       
+
+        GoogleBookSearchResponseVolumeInfo volumeInfo = googleBookResult.VolumeInfo;
+
+        List<Author> authors = await bookService.GetAuthors(volumeInfo.Authors, authorRepository);
+
+        string[] googleBookCategories = volumeInfo.Categories;
+        List<BookCategory> categories = await bookService.GetBookCategories(googleBookCategories, bookCategoryRepository);
+        
+        if (book is null)
+        {           
+            Result<Book> bookResult = Book.Create(
+                authors: authors,
+                categories: categories,
+                googleBookId: googleBookResult.Id,
+                title: volumeInfo.Title,
+                subTitle: volumeInfo.Subtitle,
+                description: volumeInfo.Description,
+                pageCount: volumeInfo.PageCount,
+                printType: volumeInfo.PrintType,
+                thumbnail: volumeInfo.ImageLinks.Thumbnail,
+                publisher: volumeInfo.Publisher,
+                publishedDate: volumeInfo.PublishedDate,
+                language: volumeInfo.Language,
+                googleBookInfoLink: volumeInfo.InfoLink,
+                googleBookPreviewLink: volumeInfo.PreviewLink);
+
+            if (bookResult.IsFailure)
             {
-                return Result.Failure<Guid>(BookErrors.OpenLibraryApiResponseFailure());
+                return Result.Failure<Guid>(bookResult.Error);
             }
 
-            if (getOpenLibraryWorkResponseV2.Error is not null)
-            {
-                ApiException error = getOpenLibraryWorkResponseV2.Error;
-                string errorMessage = error.InnerException != null
-                    ? $"{error.Message} - {error.InnerException.Message}"
-                    : error.Message;
-                return Result.Failure<Guid>(BookErrors.OpenLibraryWorkError(request.OpenLibraryWorkKey, errorMessage));
-            }
+            bookRepository.Insert(bookResult.Value);
 
-            if (getOpenLibraryWorkResponseV2.Content is null)
-            {
-                return Result.Failure<Guid>(BookErrors.OpenLibraryWorkNotFound(request.OpenLibraryWorkKey));
-            }
-
-            openLibraryWorkResult = new OpenLibraryWorkResponse(
-                getOpenLibraryWorkResponseV2.Content.Title,
-                getOpenLibraryWorkResponseV2.Content.Key,
-                getOpenLibraryWorkResponseV2.Content.Authors,
-                getOpenLibraryWorkResponseV2.Content.Covers,
-                getOpenLibraryWorkResponseV2.Content.Description?.Value,
-                getOpenLibraryWorkResponseV2.Content.First_Publish_Date,
-                getOpenLibraryWorkResponseV2.Content.Subject_Places,
-                getOpenLibraryWorkResponseV2.Content.Subjects,
-                getOpenLibraryWorkResponseV2.Content.Subject_People,
-                getOpenLibraryWorkResponseV2.Content.Subject_Times,
-                getOpenLibraryWorkResponseV2.Content.Cover_Edition,
-                getOpenLibraryWorkResponseV2.Content.Latest_Revision,
-                getOpenLibraryWorkResponseV2.Content.Revision);
+            book = bookResult.Value;
         }
         else
         {
-            openLibraryWorkResult = getOpenLibraryWorkResponse.Content;
+            book.Update(
+                authors: authors,
+                categories: categories,
+                googleBookId: googleBookResult.Id,
+                title: volumeInfo.Title,
+                subTitle: volumeInfo.Subtitle,
+                description: volumeInfo.Description,
+                pageCount: volumeInfo.PageCount,
+                printType: volumeInfo.PrintType,
+                thumbnail: volumeInfo.ImageLinks.Thumbnail,
+                publisher: volumeInfo.Publisher,
+                publishedDate: volumeInfo.PublishedDate,
+                language: volumeInfo.Language,
+                googleBookInfoLink: volumeInfo.InfoLink,
+                googleBookPreviewLink: volumeInfo.PreviewLink);
         }
 
-        // 2. Get the Open Library Book
+        Person? person = await personRepository.GetAsync(request.PersonId, cancellationToken);
 
-        string bookKey = ExtractKey(openLibraryWorkResult!.Cover_Edition.Key);
-
-        ApiResponse<OpenLibraryBookResponse> getOpenLibraryBookResponse =
-            await openLibraryApi.GetBook(bookKey, cancellationToken);
-
-        if (!getOpenLibraryBookResponse.IsSuccessStatusCode)
+        if (person is null)
         {
-            return Result.Failure<Guid>(BookErrors.OpenLibraryApiResponseFailure());
+            return Result.Failure<Guid>(PersonErrors.NotFound(request.PersonId));
         }
 
-        if (getOpenLibraryBookResponse.Error is not null)
+        bool libraryEntryExists = await libraryEntryRepository.ExistsAsync(person.Id, book.Id, cancellationToken);
+
+        if (libraryEntryExists)
         {
-            ApiException error = getOpenLibraryBookResponse.Error;
-            string errorMessage = error.InnerException != null
-                ? $"{error.Message} - {error.InnerException.Message}"
-                : error.Message;
-            return Result.Failure<Guid>(BookErrors.OpenLibraryBookError(bookKey, errorMessage));
+            return Result.Failure<Guid>(LibraryEntryErrors.Duplicate(person.Id, book.Id));
         }
 
-        if (getOpenLibraryBookResponse.Content is null)
+        Result<LibraryEntry> libraryEntryResult = LibraryEntry.Create(
+            book,
+            person,
+            dateTimeProvider.UtcNow);
+
+        if (libraryEntryResult.IsFailure)
         {
-            return Result.Failure<Guid>(BookErrors.OpenLibraryBookNotFound(bookKey));
+            return Result.Failure<Guid>(libraryEntryResult.Error);
         }
 
-        OpenLibraryBookResponse openLibraryBookResult = getOpenLibraryBookResponse.Content;
+        libraryEntryRepository.Insert(libraryEntryResult.Value);
 
-        // 3. Get the Open Library Authors
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        string authorKey = ExtractKey(openLibraryBookResult.Authors[0].Key);
-
-        ApiResponse<OpenLibraryAuthorResponse> getOpenLibraryAuthorResponse =
-            await openLibraryApi.GetAuthor(authorKey, cancellationToken);
-
-        if (!getOpenLibraryAuthorResponse.IsSuccessStatusCode)
-        {
-            return Result.Failure<Guid>(BookErrors.OpenLibraryApiResponseFailure());
-        }
-
-        if (getOpenLibraryAuthorResponse.Error is not null)
-        {
-            ApiException error = getOpenLibraryAuthorResponse.Error;
-            string errorMessage = error.InnerException != null
-                ? $"{error.Message} - {error.InnerException.Message}"
-                : error.Message;
-            return Result.Failure<Guid>(BookErrors.OpenLibraryAuthorError(authorKey, errorMessage));
-        }
-
-        if (getOpenLibraryAuthorResponse.Content is null)
-        {
-            return Result.Failure<Guid>(BookErrors.OpenLibraryAuthorNotFound(authorKey));
-        }
-
-        return Result.Success(Guid.NewGuid());
-    }
-
-    private string ExtractKey(string keyUrl)
-    {
-        // Example: /authors/OL26320A
-        return keyUrl[(keyUrl.LastIndexOf('/') + 1)..];
+        return libraryEntryResult.Value.Id;
     }
 }

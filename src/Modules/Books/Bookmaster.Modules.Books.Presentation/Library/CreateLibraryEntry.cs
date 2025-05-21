@@ -4,24 +4,24 @@ using Bookmaster.Common.Presentation.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntryObsolete;
+using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 using Microsoft.AspNetCore.Http;
 
 namespace Bookmaster.Modules.Books.Presentation.Library;
 
-internal sealed class CreateLibraryEntryObsolete : IEndpoint
+internal sealed class CreateLibraryEntry : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost(Endpoints.LibraryEntries + "-obsolete", async (ISender sender, CreateLibraryEntryObsoleteRequest request) =>
+        routeBuilder.MapPost(Endpoints.LibraryEntries, async (ISender sender, CreateLibraryEntryRequest request) =>
         {
-            Result<Guid> result = await sender.Send(new CreateLibraryEntryCommandObsolete(request.GoogleBookId, request.PersonId));
+            Result<Guid> result = await sender.Send(new CreateLibraryEntryCommand(request.GoogleBookId, request.PersonId));
 
             return result.Match(Results.Ok, ApiResults.Problem);
         });
     }
 
-    internal sealed class CreateLibraryEntryObsoleteRequest
+    internal sealed class CreateLibraryEntryRequest
     {
         public string GoogleBookId { get; init; }
         public Guid PersonId { get; init; }

@@ -10,6 +10,9 @@ public static class BookErrors
     public static Error GoogleBookNotFound(string googleBookId) =>
         Error.NotFound("Book.GoogleBookNotFound", $"The book with the Google Book Id {googleBookId} was not found");
 
+    public static Error GoogleBookError(string googleBookId, string error) =>
+        Error.NotFound("Book.GoogleBookError", $"Failed to fetch volume with the Google Book Id {googleBookId} with the error {error}");
+
     public static Error OpenLibraryApiResponseFailure() =>
         Error.Failure("Book.OpenLibraryApiResponseFailure", $"Failed to fetch data from Open Library API");
 

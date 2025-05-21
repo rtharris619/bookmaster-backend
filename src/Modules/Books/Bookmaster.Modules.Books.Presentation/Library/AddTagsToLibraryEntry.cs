@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using static Bookmaster.Modules.Books.Presentation.Library.CreateLibraryEntryObsolete;
 
 namespace Bookmaster.Modules.Books.Presentation.Library;
 

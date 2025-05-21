@@ -2,4 +2,4 @@
 
 namespace Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 
-public sealed record CreateLibraryEntryCommand(string OpenLibraryWorkKey) : ICommand<Guid>;
+public sealed record CreateLibraryEntryCommand(string GoogleBookId, Guid PersonId) : ICommand<Guid>;
