@@ -3,7 +3,7 @@ using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Domain.Tags;
-using Bookmaster.Modules.Books.Features.Abstractions;
+using Bookmaster.Modules.Books.Features.Abstractions.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 

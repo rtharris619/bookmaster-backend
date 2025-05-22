@@ -1,0 +1,9 @@
+﻿using System.Data.Common;
+
+namespace Bookmaster.Modules.Books.Features.Abstractions.Data;
+
+public interface IUnitOfWork
+{
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    Task<DbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);
+}

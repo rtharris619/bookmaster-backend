@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Bookmaster.Common.Presentation.Endpoints;
-using Bookmaster.Modules.Books.Features.Abstractions;
 using Bookmaster.Modules.Books.Infrastructure.Database;
 using Refit;
 using Npgsql;
@@ -20,6 +19,7 @@ using Bookmaster.Modules.Books.Infrastructure.Tags;
 using Bookmaster.Modules.Books.Features.OpenLibrary;
 using Bookmaster.Modules.Books.Features.GoogleBooks;
 using Newtonsoft.Json;
+using Bookmaster.Modules.Books.Features.Abstractions.Data;
 
 namespace Bookmaster.Modules.Books.Infrastructure;
 

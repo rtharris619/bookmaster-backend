@@ -1,7 +1,7 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Domain.Library;
-using Bookmaster.Modules.Books.Features.Abstractions;
+using Bookmaster.Modules.Books.Features.Abstractions.Data;
 
 namespace Bookmaster.Modules.Books.Features.Library.DeleteLibraryEntry;
 

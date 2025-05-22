@@ -5,13 +5,13 @@ namespace Bookmaster.Modules.Books.Domain.Books;
 public static class BookErrors
 {
     public static Error GoogleBookApiResponseFailure() =>
-        Error.Failure("Book.GoogleBooksApiResponseFailure", $"Failed to fetch data from Google Books API");
+        Error.Failure("Books.GoogleBooksApiResponseFailure", $"Failed to fetch data from Google Books API");
 
     public static Error GoogleBookNotFound(string googleBookId) =>
-        Error.NotFound("Book.GoogleBookNotFound", $"The book with the Google Book Id {googleBookId} was not found");
+        Error.NotFound("Books.GoogleBookNotFound", $"The book with the Google Book Id {googleBookId} was not found");
 
     public static Error GoogleBookError(string googleBookId, string error) =>
-        Error.NotFound("Book.GoogleBookError", $"Failed to fetch volume with the Google Book Id {googleBookId} with the error {error}");
+        Error.NotFound("Books.GoogleBookError", $"Failed to fetch volume with the Google Book Id {googleBookId} with the error {error}");
 
     public static Error OpenLibraryApiResponseFailure() =>
         Error.Failure("Book.OpenLibraryApiResponseFailure", $"Failed to fetch data from Open Library API");
