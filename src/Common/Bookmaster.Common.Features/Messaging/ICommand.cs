@@ -1,10 +1,9 @@
 ﻿using Bookmaster.Common.Domain;
-using MediatR;
 
 namespace Bookmaster.Common.Features.Messaging;
 
-public interface ICommand : IRequest<Result>, IBaseCommand;
+public interface ICommand : ICommand<Result>;
 
-public interface ICommand<TResponse> : IRequest<Result<TResponse>>, IBaseCommand;
+public interface ICommand<TResponse> : IBaseCommand;
 
 public interface IBaseCommand;

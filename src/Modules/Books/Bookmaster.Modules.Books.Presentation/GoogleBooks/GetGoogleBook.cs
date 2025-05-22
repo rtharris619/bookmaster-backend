@@ -1,9 +1,9 @@
 ﻿using Bookmaster.Common.Domain;
+using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
 using Bookmaster.Modules.Books.Features.GoogleBooks.GetGoogleBook;
 using Bookmaster.Modules.Books.Features.GoogleBooks.GoogleBookSearch;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -15,11 +15,12 @@ internal sealed class GetGoogleBook : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
         routeBuilder.MapGet(Endpoints.GoogleBooks + "/{googleBookId}", async (
-            ISender sender,
+            IQueryHandler<GetGoogleBookQuery, GoogleBookSearchResponseItem> handler,
+            CancellationToken cancellationToken,
             string GoogleBookId) =>
         {
-            Result<GoogleBookSearchResponseItem>? result = await sender.Send(
-                new GetGoogleBookQuery(GoogleBookId));
+            Result<GoogleBookSearchResponseItem>? result = await handler.Handle(
+                new GetGoogleBookQuery(GoogleBookId), cancellationToken);
 
             if (result is null)
             {

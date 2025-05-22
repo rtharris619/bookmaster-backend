@@ -1,9 +1,9 @@
 ﻿using Bookmaster.Common.Domain;
+using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
 using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryEditions;
 using Bookmaster.Modules.Books.Features.OpenLibrary.OpenLibrarySearch;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,13 +16,14 @@ internal sealed class GetOpenLibraryEditions : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
         routeBuilder.MapGet(Endpoints.OpenLibrary + "/works/{key}/editions", async(
-            ISender sender,
+            IQueryHandler<OpenLibraryEditionQuery, OpenLibraryEditionResponse> handler,
+            CancellationToken cancellationToken,
             string key,
             int limit = 3,
             int offset = 0) =>
         {
-            Result<OpenLibraryEditionResponse>? result = await sender.Send(
-                new OpenLibraryEditionQuery(key, limit, offset));
+            Result<OpenLibraryEditionResponse>? result = await handler.Handle(
+                new OpenLibraryEditionQuery(key, limit, offset), cancellationToken);
 
             if (result is null)
             {

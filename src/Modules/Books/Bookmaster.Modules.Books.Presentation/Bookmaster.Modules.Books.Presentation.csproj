@@ -1,5 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <Compile Remove="OpenLibrary\**" />
+    <EmbeddedResource Remove="OpenLibrary\**" />
+    <None Remove="OpenLibrary\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Library\OpenLibraryCreateLibraryEntry.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Presentation\Bookmaster.Common.Presentation.csproj" />
     <ProjectReference Include="..\Bookmaster.Modules.Books.Features\Bookmaster.Modules.Books.Features.csproj" />
   </ItemGroup>

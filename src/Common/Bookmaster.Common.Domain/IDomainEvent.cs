@@ -1,9 +1,3 @@
-﻿using MediatR;
+﻿namespace Bookmaster.Common.Domain;
 
-namespace Bookmaster.Common.Domain;
-
-public interface IDomainEvent : INotification
-{
-    Guid Id { get; }
-    DateTime OccurredOnUtc { get; }
-}
+public interface IDomainEvent;

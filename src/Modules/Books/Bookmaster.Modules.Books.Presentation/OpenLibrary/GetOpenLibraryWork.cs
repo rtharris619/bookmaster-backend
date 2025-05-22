@@ -1,8 +1,8 @@
 ﻿using Bookmaster.Common.Domain;
+using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
 using Bookmaster.Modules.Books.Features.OpenLibrary.GetOpenLibraryWork;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -14,11 +14,12 @@ internal sealed class GetOpenLibraryWork : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder routeBuilder)
     {
         routeBuilder.MapGet(Endpoints.OpenLibrary + "/works/{key}", async(
-            ISender sender,
+            IQueryHandler<OpenLibraryWorkQuery, OpenLibraryWorkResponse> handler,
+            CancellationToken cancellationToken,
             string key) =>
         {
-            Result<OpenLibraryWorkResponse> result = await sender.Send(
-                new OpenLibraryWorkQuery(key));
+            Result<OpenLibraryWorkResponse> result = await handler.Handle(
+                new OpenLibraryWorkQuery(key), cancellationToken);
 
             return result.Match(Results.Ok, ApiResults.Problem);
         });
