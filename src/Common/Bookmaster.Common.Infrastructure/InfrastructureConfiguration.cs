@@ -1,4 +1,5 @@
 ﻿using Bookmaster.Common.Features.Dates;
+using Bookmaster.Common.Infrastructure.Authentication;
 using Bookmaster.Common.Infrastructure.Dates;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -9,6 +10,8 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
+        services.AddAuthenticationInternal();
+
         services.AddServices();
 
         return services;
