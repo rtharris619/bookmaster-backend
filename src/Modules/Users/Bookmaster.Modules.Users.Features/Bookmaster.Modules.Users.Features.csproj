@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\Identity\" />
+    <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Domain\Bookmaster.Common.Domain.csproj" />
   </ItemGroup>
 
 </Project>
