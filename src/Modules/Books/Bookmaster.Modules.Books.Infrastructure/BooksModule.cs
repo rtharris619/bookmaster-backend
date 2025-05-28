@@ -46,7 +46,7 @@ public static class BooksModule
         {
             options.UseNpgsql(
                 databaseConnectionString,
-                npgsqlOptions => npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, "books"))
+                npgsqlOptions => npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Books))
             .UseSnakeCaseNamingConvention();
         });
 

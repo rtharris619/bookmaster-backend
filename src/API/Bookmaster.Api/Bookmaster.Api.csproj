@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Books\Bookmaster.Modules.Books.Infrastructure\Bookmaster.Modules.Books.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Bookmaster.Modules.Users.Infrastructure\Bookmaster.Modules.Users.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

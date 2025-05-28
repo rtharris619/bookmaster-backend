@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Infrastructure\Bookmaster.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Bookmaster.Modules.Users.Domain\Bookmaster.Modules.Users.Domain.csproj" />
     <ProjectReference Include="..\Bookmaster.Modules.Users.Features\Bookmaster.Modules.Users.Features.csproj" />
+    <ProjectReference Include="..\Bookmaster.Modules.Users.Presentation\Bookmaster.Modules.Users.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

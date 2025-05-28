@@ -3,9 +3,11 @@ using Bookmaster.Api.Extensions;
 using Bookmaster.Api.Settings;
 using Bookmaster.Common.Features;
 using Bookmaster.Common.Infrastructure;
+using Bookmaster.Common.Infrastructure.Configuration;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Modules.Books.Features;
 using Bookmaster.Modules.Books.Infrastructure;
+using Bookmaster.Modules.Users.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +24,15 @@ Assembly[] moduleFeatureAssemblies = [
 
 builder.Services.AddFeatures(moduleFeatureAssemblies);
 
-builder.Services.AddInfrastructure();
+string databaseConnectionString = builder.Configuration.GetConnectionStringOrThrow("Database");
+
+builder.Services.AddInfrastructure(databaseConnectionString);
+
+builder.Configuration.AddModuleConfiguration(["users"]);
 
 builder.AddBooksModule(builder.Configuration);
+
+builder.AddUsersModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 

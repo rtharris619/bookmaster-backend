@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Domain\Bookmaster.Common.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Features\Bookmaster.Common.Features.csproj" />
+    <ProjectReference Include="..\Bookmaster.Modules.Users.Domain\Bookmaster.Modules.Users.Domain.csproj" />
   </ItemGroup>
 
 </Project>
