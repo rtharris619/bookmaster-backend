@@ -24,7 +24,8 @@ internal sealed class AddTagsToLibraryEntry : IEndpoint
             Result result = await handler.Handle(new AddTagsToLibraryEntryCommand(libraryEntryId, request.Tags), cancellationToken);
 
             return result.Match(Results.NoContent, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 
     internal sealed class AddTagsToLibraryEntryRequest

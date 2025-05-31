@@ -27,6 +27,7 @@ internal sealed class LibraryEntrySearch : IEndpoint
             }
 
             return result.Match(Results.Ok, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 }

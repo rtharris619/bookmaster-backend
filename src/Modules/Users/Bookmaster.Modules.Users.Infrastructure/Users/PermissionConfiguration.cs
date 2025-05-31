@@ -27,41 +27,19 @@ internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permiss
             {
                 joinBuilder.ToTable("role_permissions");
                 joinBuilder.HasData(
-                    CreateMemberRolePermissions(),
-                    CreateAdminRolePermissions(),
-                    CreateSuperAdminRolePermissions()
+                    CreateRolePermission(Role.Member, Permission.GetUser),
+                    CreateRolePermission(Role.Member, Permission.ModifyUser),
+                    CreateRolePermission(Role.Member, Permission.SearchGoogleBooks),
+
+                    CreateRolePermission(Role.Admin, Permission.GetUser),
+                    CreateRolePermission(Role.Admin, Permission.ModifyUser),
+                    CreateRolePermission(Role.Admin, Permission.SearchGoogleBooks),
+
+                    CreateRolePermission(Role.SuperAdmin, Permission.GetUser),
+                    CreateRolePermission(Role.SuperAdmin, Permission.ModifyUser),
+                    CreateRolePermission(Role.SuperAdmin, Permission.SearchGoogleBooks)
                 );
             });
-    }
-
-    private static object[] CreateMemberRolePermissions()
-    {
-        return
-        [
-            CreateRolePermission(Role.Member, Permission.GetUser),
-            CreateRolePermission(Role.Member, Permission.ModifyUser),
-            CreateRolePermission(Role.Member, Permission.SearchGoogleBooks)
-        ];
-    }
-
-    private static object[] CreateAdminRolePermissions()
-    {
-        return
-        [
-            CreateRolePermission(Role.Admin, Permission.GetUser),
-            CreateRolePermission(Role.Admin, Permission.ModifyUser),
-            CreateRolePermission(Role.Admin, Permission.SearchGoogleBooks)
-        ];
-    }
-
-    private static object[] CreateSuperAdminRolePermissions()
-    {
-        return
-        [
-            CreateRolePermission(Role.SuperAdmin, Permission.GetUser),
-            CreateRolePermission(Role.SuperAdmin, Permission.ModifyUser),
-            CreateRolePermission(Role.SuperAdmin, Permission.SearchGoogleBooks)
-        ];
     }
 
     private static object CreateRolePermission(Role role, Permission permission)

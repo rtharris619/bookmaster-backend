@@ -10,6 +10,7 @@ internal sealed class IdentityProviderService(
 {
     private const string PasswordCredentialType = "Password";
 
+    // POST /admin/realms/{realm}/users
     public async Task<Result<string>> RegisterUserAsync(UserModel user, CancellationToken cancellationToken = default)
     {
         var userRepresentation = new UserRepresentation(

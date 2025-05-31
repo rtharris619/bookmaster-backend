@@ -4,7 +4,7 @@
       "AdminUrl": "http://bookmaster.identity:8080/admin/realms/bookmaster/",
       "TokenUrl": "http://bookmaster.identity:8080/realms/bookmaster/protocol/openid-connect/token",
       "ConfidentialClientId": "bookmaster-confidential-client",
-      "ConfidentialClientSecret": "HfHhW345Pephxp53SC7ZEnygqVibyNfL",
+      "ConfidentialClientSecret": "LkA8e2N9JMcNMUw4eqSHZUmSp8zi64wq",
       "PublicClientId": "bookmaster-public-client"
     }
   }

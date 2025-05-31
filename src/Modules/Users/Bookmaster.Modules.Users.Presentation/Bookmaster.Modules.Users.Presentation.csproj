@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Presentation\Bookmaster.Common.Presentation.csproj" />
+    <ProjectReference Include="..\Bookmaster.Modules.Users.Features\Bookmaster.Modules.Users.Features.csproj" />
   </ItemGroup>
 
 </Project>

@@ -28,6 +28,7 @@ internal sealed class GetGoogleBook : IEndpoint
             }
 
             return result.Match(Results.Ok, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 }

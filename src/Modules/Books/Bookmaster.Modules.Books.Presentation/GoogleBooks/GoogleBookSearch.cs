@@ -40,6 +40,7 @@ internal sealed class GoogleBookSearch : IEndpoint
             }            
 
             return result.Match(Results.Ok, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 }

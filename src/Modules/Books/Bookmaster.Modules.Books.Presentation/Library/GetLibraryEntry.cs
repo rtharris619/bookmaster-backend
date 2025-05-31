@@ -26,6 +26,7 @@ internal sealed class GetLibraryEntry : IEndpoint
             }
 
             return result.Match(Results.Ok, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 }

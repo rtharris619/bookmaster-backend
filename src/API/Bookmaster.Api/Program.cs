@@ -19,7 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 Assembly[] moduleFeatureAssemblies = [
-    Bookmaster.Modules.Books.Features.AssemblyReference.Assembly
+    Bookmaster.Modules.Books.Features.AssemblyReference.Assembly,
+    Bookmaster.Modules.Users.Features.AssemblyReference.Assembly
 ];
 
 builder.Services.AddFeatures(moduleFeatureAssemblies);
@@ -47,6 +48,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(CorsOptions.PolicyName);
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapEndpoints();
 

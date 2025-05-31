@@ -1,4 +1,5 @@
 ﻿using Bookmaster.Modules.Books.Infrastructure.Database;
+using Bookmaster.Modules.Users.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bookmaster.Api.Extensions;
@@ -10,6 +11,7 @@ internal static class MigrationsExtensions
         using IServiceScope scope = app.ApplicationServices.CreateScope();
 
         ApplyMigration<BooksDbContext>(scope);
+        ApplyMigration<UsersDbContext>(scope);
     }
 
     private static void ApplyMigration<TDbContext>(IServiceScope scope)

@@ -21,6 +21,7 @@ internal sealed class DeleteLibraryEntry : IEndpoint
             Result result = await handler.Handle(new DeleteLibraryEntryCommand(Id), cancellationToken);
 
             return result.Match(Results.NoContent, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 }

@@ -23,7 +23,8 @@ internal sealed class CreateLibraryEntry : IEndpoint
                 cancellationToken);
 
             return result.Match(Results.Ok, ApiResults.Problem);
-        });
+        })
+        .RequireAuthorization();
     }
 
     internal sealed class CreateLibraryEntryRequest
