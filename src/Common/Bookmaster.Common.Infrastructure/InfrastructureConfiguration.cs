@@ -3,6 +3,7 @@ using Bookmaster.Common.Features.Dates;
 using Bookmaster.Common.Infrastructure.Authentication;
 using Bookmaster.Common.Infrastructure.Data;
 using Bookmaster.Common.Infrastructure.Dates;
+using Bookmaster.Common.Infrastructure.Outbox;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
@@ -23,6 +24,8 @@ public static class InfrastructureConfiguration
     private static IServiceCollection AddServices(this IServiceCollection services, string databaseConnectionString)
     {
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        services.TryAddSingleton<InsertOutboxMessagesInterceptor>();
 
         NpgsqlDataSource npgsqlDataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
         services.TryAddSingleton(npgsqlDataSource);

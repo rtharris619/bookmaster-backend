@@ -2,4 +2,7 @@
 
 namespace Bookmaster.Modules.Users.Domain.Users;
 
-public sealed record UserRegisteredDomainEvent(Guid UserId) : IDomainEvent;
+public sealed class UserRegisteredDomainEvent(Guid UserId) : DomainEvent
+{
+    public Guid UserId { get; init; } = UserId;
+}

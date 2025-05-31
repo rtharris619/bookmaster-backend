@@ -8,7 +8,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Bookmaster.Common.Features\Bookmaster.Common.Features.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Outbox\" />
-  </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Bookmaster.Common.Infrastructure.Outbox;
 
 namespace Bookmaster.Modules.Users.Infrastructure;
 
@@ -48,11 +49,12 @@ public static class UsersModule
         // Database
 
         string databaseConnectionString = configuration.GetConnectionString("Database")!;
-        services.AddDbContext<UsersDbContext>(options =>
+        services.AddDbContext<UsersDbContext>((sp, options) =>
         {
             options.UseNpgsql(
                 databaseConnectionString,
                 npgsqlOptions => npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Users))
+            .AddInterceptors(sp.GetRequiredService<InsertOutboxMessagesInterceptor>())
             .UseSnakeCaseNamingConvention();
         });
 

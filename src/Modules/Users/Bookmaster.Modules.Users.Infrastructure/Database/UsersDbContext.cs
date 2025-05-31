@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using Bookmaster.Common.Infrastructure.Outbox;
 using Bookmaster.Modules.Users.Domain.Users;
 using Bookmaster.Modules.Users.Features.Abstractions.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,9 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options) : D
         modelBuilder.HasDefaultSchema(Schemas.Users);
 
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
+
+        modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
+        modelBuilder.ApplyConfiguration(new OutboxMessageConsumerConfiguration());
     }
 
     public async Task<DbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
