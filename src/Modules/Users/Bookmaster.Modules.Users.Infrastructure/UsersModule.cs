@@ -12,6 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Bookmaster.Common.Infrastructure.Outbox;
+using Bookmaster.Common.Domain;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Bookmaster.Modules.Users.Infrastructure.Outbox;
 
 namespace Bookmaster.Modules.Users.Infrastructure;
 
@@ -21,11 +24,25 @@ public static class UsersModule
         this WebApplicationBuilder builder,
         IConfiguration configuration)
     {
+        builder.Services.AddDomainEventHandlers();
+
         builder.Services.AddInfrastructure(configuration);
 
         builder.Services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
         return builder;
+    }
+
+    private static void AddDomainEventHandlers(this IServiceCollection services)
+    {
+        Type[] domainEventHandlers = [.. Features.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(t => t.IsAssignableTo(typeof(IDomainEventHandler)))];
+
+        foreach (Type domainEventHandler in domainEventHandlers)
+        {
+            services.TryAddScoped(domainEventHandler);
+        }
     }
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -61,5 +78,8 @@ public static class UsersModule
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());
+
+        services.Configure<OutboxOptions>(configuration.GetSection("Users:Outbox"));
+        services.ConfigureOptions<ConfigureProcessOutboxJob>();
     }
 }

@@ -1,5 +1,9 @@
 {
   "Users": {
+    "Outbox": {
+      "IntervalInSeconds": 15,
+      "BatchSize": 20
+    },
     "KeyCloak": {
       "AdminUrl": "http://bookmaster.identity:8080/admin/realms/bookmaster/",
       "TokenUrl": "http://bookmaster.identity:8080/realms/bookmaster/protocol/openid-connect/token",

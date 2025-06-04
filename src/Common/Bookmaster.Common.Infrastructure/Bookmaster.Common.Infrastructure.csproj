@@ -4,6 +4,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.14.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bookmaster.Common.Features\Bookmaster.Common.Features.csproj" />

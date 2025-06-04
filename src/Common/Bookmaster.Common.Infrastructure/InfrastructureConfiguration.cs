@@ -7,6 +7,7 @@ using Bookmaster.Common.Infrastructure.Outbox;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
+using Quartz;
 
 namespace Bookmaster.Common.Infrastructure;
 
@@ -17,6 +18,9 @@ public static class InfrastructureConfiguration
         services.AddAuthenticationInternal();
 
         services.AddServices(databaseConnectionString);
+
+        services.AddQuartz();
+        services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
         return services;
     }
