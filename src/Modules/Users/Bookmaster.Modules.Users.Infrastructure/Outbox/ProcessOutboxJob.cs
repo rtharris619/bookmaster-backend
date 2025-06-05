@@ -54,7 +54,6 @@ internal sealed class ProcessOutboxJob(
                 
                 foreach (IDomainEventHandler domainEventHandler in domainEventHandlers)
                 {
-                    logger.LogInformation("Domain event about to be handled!");
                     await domainEventHandler.Handle(domainEvent);
                 }
             }
