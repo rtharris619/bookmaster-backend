@@ -27,9 +27,13 @@ builder.Services.AddFeatures(moduleFeatureAssemblies);
 
 string databaseConnectionString = builder.Configuration.GetConnectionStringOrThrow("Database");
 
-builder.Services.AddInfrastructure(databaseConnectionString);
+builder.Services.AddInfrastructure(
+[
+    BooksModule.ConfigureConsumers,
+], 
+databaseConnectionString);
 
-builder.Configuration.AddModuleConfiguration(["users"]);
+builder.Configuration.AddModuleConfiguration(["books", "users"]);
 
 builder.AddBooksModule(builder.Configuration);
 

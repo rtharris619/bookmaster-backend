@@ -20,6 +20,11 @@ using Bookmaster.Modules.Books.Features.OpenLibrary;
 using Bookmaster.Modules.Books.Features.GoogleBooks;
 using Newtonsoft.Json;
 using Bookmaster.Modules.Books.Features.Abstractions.Data;
+using MassTransit;
+using Bookmaster.Modules.Books.Infrastructure.Inbox;
+using Bookmaster.Modules.Users.IntegrationEvents;
+using Bookmaster.Common.Features.EventBus;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Bookmaster.Modules.Books.Infrastructure;
 
@@ -29,6 +34,8 @@ public static class BooksModule
         this WebApplicationBuilder builder,
         IConfiguration configuration)
     {
+        builder.Services.AddIntegrationEventHandlers();
+
         builder.AddFeatureServices();
 
         builder.Services.AddInfrastructure(configuration);
@@ -36,6 +43,11 @@ public static class BooksModule
         builder.Services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
         return builder;
+    }
+
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+    {
+        registrationConfigurator.AddConsumer<IntegrationEventConsumer<UserRegisteredIntegrationEvent>>();
     }
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -77,5 +89,29 @@ public static class BooksModule
                 ContentSerializer = new NewtonsoftJsonContentSerializer()
             })
             .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://openlibrary.org"));
+    }
+
+    private static void AddIntegrationEventHandlers(this IServiceCollection services)
+    {
+        Type[] integrationEventHandlers = Presentation.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(t => t.IsAssignableTo(typeof(IIntegrationEventHandler)))
+            .ToArray();
+
+        foreach (Type integrationEventHandler in integrationEventHandlers)
+        {
+            services.TryAddScoped(integrationEventHandler);
+
+            Type integrationEvent = integrationEventHandler
+                .GetInterfaces()
+                .Single(i => i.IsGenericType)
+                .GetGenericArguments()
+                .Single();
+
+            Type closedIdempotentHandler =
+                typeof(IdempotentIntegrationEventHandler<>).MakeGenericType(integrationEvent);
+
+            services.Decorate(integrationEventHandler, closedIdempotentHandler);
+        }
     }
 }

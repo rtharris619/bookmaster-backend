@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Modules.Users.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Modules.Users.Presentation", "src\Modules\Users\Bookmaster.Modules.Users.Presentation\Bookmaster.Modules.Users.Presentation.csproj", "{19FD8173-8C3F-4F6D-ACA8-6FC6398B9FC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmaster.Modules.Users.IntegrationEvents", "src\Modules\Users\Bookmaster.Modules.Users.IntegrationEvents\Bookmaster.Modules.Users.IntegrationEvents.csproj", "{0D73C8CD-7D17-4017-B18B-B00E87C8E50A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{19FD8173-8C3F-4F6D-ACA8-6FC6398B9FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19FD8173-8C3F-4F6D-ACA8-6FC6398B9FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19FD8173-8C3F-4F6D-ACA8-6FC6398B9FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D73C8CD-7D17-4017-B18B-B00E87C8E50A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D73C8CD-7D17-4017-B18B-B00E87C8E50A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D73C8CD-7D17-4017-B18B-B00E87C8E50A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D73C8CD-7D17-4017-B18B-B00E87C8E50A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +140,7 @@ Global
 		{1902F848-A82E-406B-84B6-61D2FDB5300A} = {7CBDA7D0-7822-422A-AF04-B67D7FE41EAC}
 		{E978F075-5F9B-492C-A9E8-B667DAC3328C} = {7CBDA7D0-7822-422A-AF04-B67D7FE41EAC}
 		{19FD8173-8C3F-4F6D-ACA8-6FC6398B9FC3} = {7CBDA7D0-7822-422A-AF04-B67D7FE41EAC}
+		{0D73C8CD-7D17-4017-B18B-B00E87C8E50A} = {7CBDA7D0-7822-422A-AF04-B67D7FE41EAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {665E6C96-8A08-4809-8CDA-76F7B77AE350}
