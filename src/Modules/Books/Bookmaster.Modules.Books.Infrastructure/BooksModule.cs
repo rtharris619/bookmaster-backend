@@ -72,6 +72,10 @@ public static class BooksModule
         services.AddScoped<ITagRepository, TagRepository>();
 
         services.AddScoped<IBookService, BookService>();
+
+        services.Configure<InboxOptions>(configuration.GetSection("Books:Inbox"));
+
+        services.ConfigureOptions<ConfigureProcessInboxJob>();
     }
 
     private static void AddFeatureServices(this WebApplicationBuilder builder)

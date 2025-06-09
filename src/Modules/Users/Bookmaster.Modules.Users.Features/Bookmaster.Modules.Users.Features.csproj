@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Domain\Bookmaster.Common.Domain.csproj" />
     <ProjectReference Include="..\..\..\Common\Bookmaster.Common.Features\Bookmaster.Common.Features.csproj" />
     <ProjectReference Include="..\Bookmaster.Modules.Users.Domain\Bookmaster.Modules.Users.Domain.csproj" />
+    <ProjectReference Include="..\Bookmaster.Modules.Users.IntegrationEvents\Bookmaster.Modules.Users.IntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

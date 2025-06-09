@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using Bookmaster.Common.Infrastructure.Inbox;
 using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Domain.Library;
 using Bookmaster.Modules.Books.Domain.People;
@@ -24,6 +25,9 @@ public sealed class BooksDbContext(DbContextOptions<BooksDbContext> options)
         modelBuilder.HasDefaultSchema(Schemas.Books);
 
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
+
+        modelBuilder.ApplyConfiguration(new InboxMessageConfiguration());
+        modelBuilder.ApplyConfiguration(new InboxMessageConsumerConfiguration());
     }
 
     public async Task<DbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
