@@ -2,4 +2,4 @@
 
 namespace Bookmaster.Modules.Books.Features.People;
 
-public sealed record CreatePersonCommand(Guid PersonId, string Email, string FirstName, string LastName) : ICommand<Guid>;
+public sealed record CreatePersonCommand(Guid PersonId, string Email, string FirstName, string LastName, string IdentityId) : ICommand<Guid>;

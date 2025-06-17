@@ -11,16 +11,8 @@ internal sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
     {
         builder.HasKey(x => x.Id);
 
+        builder.HasIndex(x => x.IdentityId);
+
         builder.HasMany(x => x.LibraryEntries);
-
-        builder.HasData(CreatePeople());
-    }
-
-    private static List<Person> CreatePeople()
-    {
-        return [
-            new Person(Guid.Parse("2c356126-124e-4b99-b2b3-1c848dedf966"), "ryan@bookmaster.com", "Ryan", "Harris"),
-            new Person(Guid.Parse("9ed784e0-6231-4bf8-9b98-b16716dede98"), "claudene@bookmaster.com", "Claudene", "Harris")
-        ];
     }
 }

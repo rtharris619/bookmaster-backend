@@ -6,5 +6,7 @@ public interface IPersonRepository
 
     Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default);
 
+    Task<Person?> GetByIdentityIdAsync(string identityId, CancellationToken cancellationToken = default);
+
     void Insert(Person person);
 }

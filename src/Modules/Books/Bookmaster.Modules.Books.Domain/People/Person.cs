@@ -10,12 +10,13 @@ public sealed class Person : Entity
 
     private Person() { }
 
-    public Person(Guid id, string email, string firstName, string lastName) 
+    public Person(Guid id, string email, string firstName, string lastName, string identityId) 
     {
-        Id = id;
+        Id = id;        
         Email = email;
         FirstName = firstName;
         LastName = lastName;
+        IdentityId = identityId;
     }
 
     public Guid Id { get; private set; }
@@ -26,16 +27,19 @@ public sealed class Person : Entity
 
     public string LastName { get; private set; }
 
+    public string IdentityId { get; private set; }
+
     public IReadOnlyCollection<LibraryEntry> LibraryEntries => [.. _libraryEntries];
 
-    public static Person Create(Guid id, string email, string firstName, string lastName)
+    public static Person Create(Guid id, string email, string firstName, string lastName, string identityId)
     {
         return new Person
         {
             Id = id,
             Email = email,
             FirstName = firstName,
-            LastName = lastName
+            LastName = lastName,
+            IdentityId = identityId
         };
     }
 }

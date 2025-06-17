@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    [Migration("20250502111419_Book_Categories")]
-    partial class Book_Categories
+    [Migration("20250617134653_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,59 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     b.ToTable("book_book_categories", "books");
                 });
 
+            modelBuilder.Entity("Bookmaster.Common.Infrastructure.Inbox.InboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("jsonb")
+                        .HasColumnName("content");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text")
+                        .HasColumnName("error");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("occurred_on_utc");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_on_utc");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_inbox_messages");
+
+                    b.ToTable("inbox_messages", "books");
+                });
+
+            modelBuilder.Entity("Bookmaster.Common.Infrastructure.Inbox.InboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("InboxMessageId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("inbox_message_id");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("name");
+
+                    b.HasKey("InboxMessageId", "Name")
+                        .HasName("pk_inbox_message_consumers");
+
+                    b.ToTable("inbox_message_consumers", "books");
+                });
+
             modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Books.Author", b =>
                 {
                     b.Property<Guid>("Id")
@@ -91,7 +144,6 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description");
 
@@ -104,9 +156,23 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("google_book_info_link");
 
+                    b.Property<string>("GoogleBookPreviewLink")
+                        .HasColumnType("text")
+                        .HasColumnName("google_book_preview_link");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("language");
+
                     b.Property<int>("PageCount")
                         .HasColumnType("integer")
                         .HasColumnName("page_count");
+
+                    b.Property<string>("PrintType")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("print_type");
 
                     b.Property<string>("PublishedDate")
                         .HasColumnType("text")
@@ -116,17 +182,9 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("publisher");
 
-                    b.Property<string>("SmallThumbnail")
-                        .HasColumnType("text")
-                        .HasColumnName("small_thumbnail");
-
                     b.Property<string>("Subtitle")
                         .HasColumnType("text")
                         .HasColumnName("subtitle");
-
-                    b.Property<string>("TextSnippet")
-                        .HasColumnType("text")
-                        .HasColumnName("text_snippet");
 
                     b.Property<string>("Thumbnail")
                         .HasColumnType("text")
@@ -210,6 +268,11 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("first_name");
 
+                    b.Property<string>("IdentityId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("identity_id");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -218,23 +281,48 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_people");
 
-                    b.ToTable("people", "books");
+                    b.HasIndex("IdentityId")
+                        .HasDatabaseName("ix_people_identity_id");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2c356126-124e-4b99-b2b3-1c848dedf966"),
-                            Email = "ryan@bookmaster.com",
-                            FirstName = "Ryan",
-                            LastName = "Harris"
-                        },
-                        new
-                        {
-                            Id = new Guid("9ed784e0-6231-4bf8-9b98-b16716dede98"),
-                            Email = "claudene@bookmaster.com",
-                            FirstName = "Claudene",
-                            LastName = "Harris"
-                        });
+                    b.ToTable("people", "books");
+                });
+
+            modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Tags.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_tags");
+
+                    b.ToTable("tags", "books");
+                });
+
+            modelBuilder.Entity("LibraryEntryTag", b =>
+                {
+                    b.Property<Guid>("LibraryEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("library_entry_id");
+
+                    b.Property<Guid>("TagsId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tags_id");
+
+                    b.HasKey("LibraryEntryId", "TagsId")
+                        .HasName("pk_library_entry_tags");
+
+                    b.HasIndex("TagsId")
+                        .HasDatabaseName("ix_library_entry_tags_tags_id");
+
+                    b.ToTable("library_entry_tags", "books");
                 });
 
             modelBuilder.Entity("AuthorBook", b =>
@@ -290,6 +378,23 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("LibraryEntryTag", b =>
+                {
+                    b.HasOne("Bookmaster.Modules.Books.Domain.Library.LibraryEntry", null)
+                        .WithMany()
+                        .HasForeignKey("LibraryEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_library_entry_tags_library_entries_library_entry_id");
+
+                    b.HasOne("Bookmaster.Modules.Books.Domain.Tags.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_library_entry_tags_tags_tags_id");
                 });
 
             modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Books.Book", b =>

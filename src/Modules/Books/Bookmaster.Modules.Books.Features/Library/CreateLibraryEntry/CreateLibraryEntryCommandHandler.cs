@@ -102,11 +102,11 @@ internal sealed class CreateLibraryEntryCommandHandler(
                 googleBookPreviewLink: volumeInfo.PreviewLink);
         }
 
-        Person? person = await personRepository.GetAsync(request.PersonId, cancellationToken);
+        Person? person = await personRepository.GetByIdentityIdAsync(request.IdentityId, cancellationToken);
 
         if (person is null)
         {
-            return Result.Failure<Guid>(PersonErrors.NotFound(request.PersonId));
+            return Result.Failure<Guid>(PersonErrors.NotFound(request.IdentityId));
         }
 
         bool libraryEntryExists = await libraryEntryRepository.ExistsAsync(person.Id, book.Id, cancellationToken);

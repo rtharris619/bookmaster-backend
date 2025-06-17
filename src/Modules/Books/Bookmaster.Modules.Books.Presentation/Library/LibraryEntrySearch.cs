@@ -1,4 +1,5 @@
-﻿using Bookmaster.Common.Domain;
+﻿using System.Security.Claims;
+using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Common.Presentation.Endpoints;
 using Bookmaster.Common.Presentation.Results;
@@ -16,10 +17,18 @@ internal sealed class LibraryEntrySearch : IEndpoint
         routeBuilder.MapGet(Endpoints.LibraryEntries + "/search", async (
             IQueryHandler<LibraryEntrySearchQuery, LibraryEntrySearchResponse> handler,
             CancellationToken cancellationToken,
-            Guid personId, 
+            HttpContext httpContext,
             string? q = null) =>
         {
-            Result<LibraryEntrySearchResponse>? result = await handler.Handle(new LibraryEntrySearchQuery(personId, q), cancellationToken);
+            string? subject = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+               ?? httpContext.User.FindFirst("sub")?.Value;
+
+            if (subject is null)
+            {
+                return Results.Problem(detail: "Invalid or missing subject in JWT token");
+            }
+
+            Result<LibraryEntrySearchResponse>? result = await handler.Handle(new LibraryEntrySearchQuery(subject, q), cancellationToken);
 
             if (result is null)
             {

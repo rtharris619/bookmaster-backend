@@ -265,6 +265,11 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("first_name");
 
+                    b.Property<string>("IdentityId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("identity_id");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -273,23 +278,10 @@ namespace Bookmaster.Modules.Books.Infrastructure.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_people");
 
-                    b.ToTable("people", "books");
+                    b.HasIndex("IdentityId")
+                        .HasDatabaseName("ix_people_identity_id");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2c356126-124e-4b99-b2b3-1c848dedf966"),
-                            Email = "ryan@bookmaster.com",
-                            FirstName = "Ryan",
-                            LastName = "Harris"
-                        },
-                        new
-                        {
-                            Id = new Guid("9ed784e0-6231-4bf8-9b98-b16716dede98"),
-                            Email = "claudene@bookmaster.com",
-                            FirstName = "Claudene",
-                            LastName = "Harris"
-                        });
+                    b.ToTable("people", "books");
                 });
 
             modelBuilder.Entity("Bookmaster.Modules.Books.Domain.Tags.Tag", b =>

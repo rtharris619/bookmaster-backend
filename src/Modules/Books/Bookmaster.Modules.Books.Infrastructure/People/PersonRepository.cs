@@ -20,6 +20,14 @@ internal sealed class PersonRepository(BooksDbContext context) : IPersonReposito
             .AnyAsync(x => x.Id == id, cancellationToken);
     }
 
+    public Task<Person?> GetByIdentityIdAsync(string identityId, CancellationToken cancellationToken = default)
+    {
+        return context.People
+            .Include(p => p.LibraryEntries)
+            .SingleOrDefaultAsync(p => p.IdentityId == identityId,
+                cancellationToken);
+    }
+
     public void Insert(Person person)
     {
         context.People.Add(person);

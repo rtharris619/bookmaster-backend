@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Routing;
 using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 using Microsoft.AspNetCore.Http;
 using Bookmaster.Common.Features.Messaging;
+using System.Net.Http;
+using System.Security.Claims;
 
 namespace Bookmaster.Modules.Books.Presentation.Library;
 
@@ -16,10 +18,19 @@ internal sealed class CreateLibraryEntry : IEndpoint
         routeBuilder.MapPost(Endpoints.LibraryEntries, async (
             ICommandHandler<CreateLibraryEntryCommand, Guid> handler, 
             CancellationToken cancellationToken,
+            HttpContext httpContext,
             CreateLibraryEntryRequest request) =>
         {
+            string? subject = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+               ?? httpContext.User.FindFirst("sub")?.Value;
+
+            if (subject is null)
+            {
+                return Results.Problem(detail: "Invalid or missing subject in JWT token");
+            }
+
             Result<Guid> result = await handler.Handle(
-                new CreateLibraryEntryCommand(request.GoogleBookId, request.PersonId), 
+                new CreateLibraryEntryCommand(request.GoogleBookId, subject), 
                 cancellationToken);
 
             return result.Match(Results.Ok, ApiResults.Problem);
@@ -30,6 +41,5 @@ internal sealed class CreateLibraryEntry : IEndpoint
     internal sealed class CreateLibraryEntryRequest
     {
         public string GoogleBookId { get; init; }
-        public Guid PersonId { get; init; }
     }
 }

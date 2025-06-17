@@ -26,10 +26,11 @@ internal sealed class UserRegisteredDomainEventHandler(
             new UserRegisteredIntegrationEvent(
                 domainEvent.Id,
                 domainEvent.OccurredOnUtc,
-                result.Value.Id,
+                result.Value.Id,                
                 result.Value.Email,
                 result.Value.FirstName,
-                result.Value.LastName),
+                result.Value.LastName,
+                result.Value.IdentityId),
             cancellationToken);
     }
 }

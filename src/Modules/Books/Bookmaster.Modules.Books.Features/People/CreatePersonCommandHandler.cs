@@ -22,7 +22,8 @@ internal sealed class CreatePersonCommandHandler(
             id: command.PersonId,
             email: command.Email,
             firstName: command.FirstName,
-            lastName: command.LastName);
+            lastName: command.LastName,
+            identityId: command.IdentityId);
 
         personRepository.Insert(newPerson);
 

@@ -2,17 +2,27 @@
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Domain.Books;
 using Bookmaster.Modules.Books.Domain.Library;
+using Bookmaster.Modules.Books.Domain.People;
 
 namespace Bookmaster.Modules.Books.Features.Library.LibraryEntrySearch;
 
-internal sealed class LibraryEntrySearchQueryHandler(ILibraryEntryRepository libraryEntryRepository)
+internal sealed class LibraryEntrySearchQueryHandler(
+    ILibraryEntryRepository libraryEntryRepository,
+    IPersonRepository personRepository)
     : IQueryHandler<LibraryEntrySearchQuery, LibraryEntrySearchResponse>
 {
     public async Task<Result<LibraryEntrySearchResponse>> Handle(LibraryEntrySearchQuery request, CancellationToken cancellationToken)
     {
         var result = new List<LibraryEntriesResponse>();
 
-        List<LibraryEntry> libraryEntries = await libraryEntryRepository.GetByPersonIdAsync(request.PersonId, cancellationToken);
+        Person? person = await personRepository.GetByIdentityIdAsync(request.IdentityId, cancellationToken);
+
+        if (person is null)
+        {
+            return null;
+        }
+
+        List<LibraryEntry> libraryEntries = await libraryEntryRepository.GetByPersonIdAsync(person.Id, cancellationToken);
 
         foreach (LibraryEntry libraryEntry in libraryEntries)
         {   

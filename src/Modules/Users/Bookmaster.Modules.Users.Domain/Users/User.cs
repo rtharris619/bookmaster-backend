@@ -33,7 +33,7 @@ public sealed class User : Entity
 
         user._roles.Add(Role.Member);
 
-        user.Raise(new UserRegisteredDomainEvent(user.Id));
+        user.Raise(new UserRegisteredDomainEvent(user.Id, user.IdentityId));
 
         return user;
     }

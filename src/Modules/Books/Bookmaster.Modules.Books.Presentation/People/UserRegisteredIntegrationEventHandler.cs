@@ -16,10 +16,11 @@ internal sealed class UserRegisteredIntegrationEventHandler(
     {
         Result<Guid> result = await handler.Handle(
                 new CreatePersonCommand(
-                    integrationEvent.Id,
+                    integrationEvent.UserId,                    
                     integrationEvent.Email,
                     integrationEvent.FirstName,
-                    integrationEvent.LastName
+                    integrationEvent.LastName,
+                    integrationEvent.IdentityId
                 ),
                 cancellationToken);
 
