@@ -22,7 +22,7 @@ public sealed record GoogleBookSearchResponseVolumeInfo(
     int PageCount,
     int? PrintedPageCount,
     string PrintType,
-    string[] Categories,
+    string[]? Categories,
     GoogleBookSearchResponseImageLinks ImageLinks,
     GoogleBookSearchResponseIndustryIdentifiers[]? IndustryIdentifiers,
     string Language,

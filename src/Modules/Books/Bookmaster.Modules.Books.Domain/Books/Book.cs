@@ -89,7 +89,7 @@ public sealed class Book : Entity
 
     public void Update(
         List<Author> authors,
-        List<BookCategory> categories,
+        List<BookCategory>? categories,
         string googleBookId,
         string title,
         string? subTitle,
@@ -104,7 +104,11 @@ public sealed class Book : Entity
         string? googleBookPreviewLink)
     {
         UpdateAuthors(authors);
-        UpdateCategories(categories);
+
+        if (categories is not null)
+        {
+            UpdateCategories(categories);
+        }
 
         GoogleBookId = googleBookId;
         Title = title;

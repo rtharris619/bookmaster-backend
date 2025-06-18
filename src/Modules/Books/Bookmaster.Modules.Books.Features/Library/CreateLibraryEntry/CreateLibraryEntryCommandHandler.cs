@@ -53,8 +53,12 @@ internal sealed class CreateLibraryEntryCommandHandler(
 
         List<Author> authors = await bookService.GetAuthors(volumeInfo.Authors, authorRepository);
 
-        string[] googleBookCategories = volumeInfo.Categories;
-        List<BookCategory> categories = await bookService.GetBookCategories(googleBookCategories, bookCategoryRepository);
+        List<BookCategory> categories = null;
+        string[]? googleBookCategories = volumeInfo.Categories;
+        if (googleBookCategories is not null)
+        {
+            categories = await bookService.GetBookCategories(googleBookCategories, bookCategoryRepository);
+        }
         
         if (book is null)
         {           
