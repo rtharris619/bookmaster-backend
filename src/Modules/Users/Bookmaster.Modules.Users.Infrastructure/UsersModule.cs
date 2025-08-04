@@ -15,6 +15,8 @@ using Bookmaster.Common.Infrastructure.Outbox;
 using Bookmaster.Common.Domain;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Bookmaster.Modules.Users.Infrastructure.Outbox;
+using Bookmaster.Common.Features.Authorization;
+using Bookmaster.Modules.Users.Infrastructure.Authorization;
 
 namespace Bookmaster.Modules.Users.Infrastructure;
 
@@ -57,6 +59,8 @@ public static class UsersModule
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IPermissionService, PermissionService>();
+
         // KeyCloak / Identity
 
         services.Configure<KeyCloakOptions>(configuration.GetSection("Users:KeyCloak"));

@@ -37,4 +37,17 @@ public sealed class User : Entity
 
         return user;
     }
+
+    public void Update(string firstName, string lastName)
+    {
+        if (FirstName == firstName && LastName == lastName)
+        {
+            return;
+        }
+
+        FirstName = firstName;
+        LastName = lastName;
+
+        Raise(new UserProfileUpdatedDomainEvent(Id, FirstName, LastName));
+    }
 }

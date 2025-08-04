@@ -5,7 +5,6 @@ VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{C6826A5C-6DCF-44CD-A765-1B5F47EFF9D7}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject

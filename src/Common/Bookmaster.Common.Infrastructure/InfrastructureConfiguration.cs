@@ -2,6 +2,7 @@
 using Bookmaster.Common.Features.Dates;
 using Bookmaster.Common.Features.EventBus;
 using Bookmaster.Common.Infrastructure.Authentication;
+using Bookmaster.Common.Infrastructure.Authorization;
 using Bookmaster.Common.Infrastructure.Data;
 using Bookmaster.Common.Infrastructure.Dates;
 using Bookmaster.Common.Infrastructure.Outbox;
@@ -21,6 +22,8 @@ public static class InfrastructureConfiguration
         string databaseConnectionString)
     {
         services.AddAuthenticationInternal();
+
+        services.AddAuthorizationInternal();
 
         services.AddServices(databaseConnectionString);
 

@@ -37,10 +37,9 @@ internal sealed class GoogleBookSearch : IEndpoint
             if (result is null)
             {
                 return Results.Problem(detail: "Error in retrieving books from Google Books API.");
-            }            
+            }
 
             return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .RequireAuthorization();
+        });
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.Messaging;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bookmaster.Common.Features;
@@ -30,6 +31,8 @@ public static class FeaturesConfiguration
             .AddClasses(classes => classes.AssignableTo(typeof(IDomainEventHandler<>)), publicOnly: false)
             .AsImplementedInterfaces()
             .WithScopedLifetime());
+
+        //services.AddValidatorsFromAssemblies(moduleAssemblies, includeInternalTypes: true);
 
         return services;
     }
