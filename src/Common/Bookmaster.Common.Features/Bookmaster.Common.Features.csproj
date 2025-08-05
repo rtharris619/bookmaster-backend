@@ -9,4 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bookmaster.Common.Domain\Bookmaster.Common.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.Eventing.Reader;
 using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.EventBus;
+using Bookmaster.Common.Features.Exceptions;
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
 using Bookmaster.Modules.Books.Features.People.CreatePerson;
@@ -26,7 +27,7 @@ internal sealed class UserRegisteredIntegrationEventHandler(
 
         if (result.IsFailure)
         {
-            throw new Exception(nameof(CreatePersonCommand));
+            throw new BookmasterException(nameof(CreatePersonCommand), result.Error);
         }
     }
 }

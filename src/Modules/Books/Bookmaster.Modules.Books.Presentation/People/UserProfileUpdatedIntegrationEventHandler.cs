@@ -1,5 +1,6 @@
 ﻿using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.EventBus;
+using Bookmaster.Common.Features.Exceptions;
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Features.People.UpdatePerson;
 using Bookmaster.Modules.Users.IntegrationEvents;
@@ -21,7 +22,7 @@ internal sealed class UserProfileUpdatedIntegrationEventHandler(
 
         if (result.IsFailure)
         {
-            throw new Exception(nameof(UpdatePersonCommand));
+            throw new BookmasterException(nameof(UpdatePersonCommand), result.Error);
         }
     }
 }

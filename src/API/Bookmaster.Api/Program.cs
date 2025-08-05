@@ -1,5 +1,6 @@
 using System.Reflection;
 using Bookmaster.Api.Extensions;
+using Bookmaster.Api.Middleware;
 using Bookmaster.Api.Settings;
 using Bookmaster.Common.Features;
 using Bookmaster.Common.Infrastructure;
@@ -13,6 +14,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.AddCorsPolicy();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -57,5 +59,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapEndpoints();
+
+app.UseExceptionHandler();
 
 app.Run();
