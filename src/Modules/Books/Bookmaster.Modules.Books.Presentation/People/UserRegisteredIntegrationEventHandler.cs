@@ -3,7 +3,7 @@ using Bookmaster.Common.Domain;
 using Bookmaster.Common.Features.EventBus;
 using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Features.Library.CreateLibraryEntry;
-using Bookmaster.Modules.Books.Features.People;
+using Bookmaster.Modules.Books.Features.People.CreatePerson;
 using Bookmaster.Modules.Users.IntegrationEvents;
 
 namespace Bookmaster.Modules.Books.Presentation.People;

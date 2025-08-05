@@ -3,7 +3,7 @@ using Bookmaster.Common.Features.Messaging;
 using Bookmaster.Modules.Books.Domain.People;
 using Bookmaster.Modules.Books.Features.Abstractions.Data;
 
-namespace Bookmaster.Modules.Books.Features.People;
+namespace Bookmaster.Modules.Books.Features.People.CreatePerson;
 
 internal sealed class CreatePersonCommandHandler(
     IPersonRepository personRepository,

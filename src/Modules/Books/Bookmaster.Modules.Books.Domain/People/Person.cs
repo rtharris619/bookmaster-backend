@@ -42,4 +42,10 @@ public sealed class Person : Entity
             IdentityId = identityId
         };
     }
+
+    public void Update(string firstName, string lastName)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+    }
 }

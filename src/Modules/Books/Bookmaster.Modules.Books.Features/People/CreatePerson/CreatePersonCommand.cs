@@ -1,5 +1,5 @@
 ﻿using Bookmaster.Common.Features.Messaging;
 
-namespace Bookmaster.Modules.Books.Features.People;
+namespace Bookmaster.Modules.Books.Features.People.CreatePerson;
 
 public sealed record CreatePersonCommand(Guid PersonId, string Email, string FirstName, string LastName, string IdentityId) : ICommand<Guid>;
