@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Bookmaster.Common.Domain;
+using Bookmaster.Common.Features.Behaviors;
 using Bookmaster.Common.Features.Messaging;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,10 @@ public static class FeaturesConfiguration
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
-        //services.AddValidatorsFromAssemblies(moduleAssemblies, includeInternalTypes: true);
+        services.Decorate(typeof(ICommandHandler<,>), typeof(ValidationDecorator.CommandHandler<,>));
+        services.Decorate(typeof(ICommandHandler<>), typeof(ValidationDecorator.CommandBaseHandler<>));
+
+        services.AddValidatorsFromAssemblies(moduleAssemblies, includeInternalTypes: true);
 
         return services;
     }
