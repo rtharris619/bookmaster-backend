@@ -36,6 +36,10 @@ public static class FeaturesConfiguration
         services.Decorate(typeof(ICommandHandler<,>), typeof(ValidationDecorator.CommandHandler<,>));
         services.Decorate(typeof(ICommandHandler<>), typeof(ValidationDecorator.CommandBaseHandler<>));
 
+        services.Decorate(typeof(IQueryHandler<,>), typeof(ExceptionHandlingDecorator.QueryHandler<,>));
+        services.Decorate(typeof(ICommandHandler<,>), typeof(ExceptionHandlingDecorator.CommandHandler<,>));
+        services.Decorate(typeof(ICommandHandler<>), typeof(ExceptionHandlingDecorator.CommandBaseHandler<>));
+
         services.AddValidatorsFromAssemblies(moduleAssemblies, includeInternalTypes: true);
 
         return services;
